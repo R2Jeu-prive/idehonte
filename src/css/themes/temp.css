@@ -1,0 +1,25 @@
+/* Might bu usefull later */
+:root {
+    /* Code color */
+    --code-text-color: white;
+    --code-caml:rgb(110, 110, 201);
+    --code-error:#d9534f;
+    --code-string:#c3e88d;
+    --code-number:#ff5370;
+    --code-constant:#ffcb6b;
+    --code-keyword:#c792ea;
+    --code-operator:#89ddff;
+    --code-variable:#f07178;
+    --code-builtin:#ffcb6b;
+    --code-atom:#f78c6c;
+    --code-def:#EB00FF;
+    --code-comment:#546e7a;
+    --code-brackets:#fff;
+    --code-escape:#409290;
+    --code-symbol:#decb6b;
+    --code-tag:#ff5370;
+    --code-meta:#ffcb6b;
+    --code-attribute:#c792ea;
+    --code-qualifier: #decb6b;
+
+}

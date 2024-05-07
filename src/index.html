@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>IDE de la honte</title>
+        <meta name="description"
+            content="An efficient, intuitive, web, block IDE to learn the OCaml language (recent: v5.1.1), with your code interpreted and running in your browser!">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/themes/default.css" id="selected-theme">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/loading.css">
+        <link rel="stylesheet" href="css/terminal.css">
+        <link rel="stylesheet" href="css/playground.css">
+        <link rel="stylesheet" href="css/block.css">
+        <link rel="stylesheet" href="css/shop.css">
+        <link rel="stylesheet" href="css/ide.css">
+
+        <script>
+            // OCaml Toplevel version loading
+            let script = document.createElement('script');
+            script.async = true;
+            script.type = 'text/javascript';
+            script.src = 'toplevels/toplevel-5.1.1.js';
+
+            document.head.appendChild(script);
+        </script>
+    </head>
+
+    <body>
+
+        <div id="loading-screen">
+            <img id="loading-icon" src="img/colour-icon.png"/>
+            <h1 id="loading-title">Ocaml Block</h1>
+            <span id="loading-loader"></span>
+        </div>
+
+        <div id="ide">
+            <div id="ide-left">
+                <div id="ide-menu"></div>
+                <div id="ide-shop">
+                    <div id="shop-categories">
+                        <div id="shop-category-selector"></div>
+                        <p id="shop-category-a" class="shop-category">A</p>
+                        <p id="shop-category-b" class="shop-category">B</p>
+                        <p id="shop-category-c" class="shop-category">C</p>
+                    </div>
+                    <div id="shop-stall"></div>
+                </div>
+            </div>
+            <div id="ide-right">
+                <div id="ide-playground"></div>
+                <div id="ide-right-resizer"></div>
+                <div id="ide-terminal">
+                    <div id="terminal-close">
+                        <div id="terminal-close-cross-a" class="terminal-close-cross"></div>
+                        <div id="terminal-close-cross-b" class="terminal-close-cross"></div>
+                    </div>
+                    <div id="toplevel-container"><!-- this id must not change-->
+                        <pre id="output" height="auto"></pre>
+                        <textarea id="userinput" autocorrect="off" autocapitalize="none">Loading ...</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="graphics" style="display: none;">
+            <canvas id="test-canvas">
+            </canvas>
+        </div>
+
+        <script src="js/temp.js"></script>
+        <script src="js/classes/block.js"></script>
+        <script src="js/classes/expressionBlock.js"></script>
+        <script src="js/classes/constrType.js"></script>
+        <script src="js/classes/expressionType.js"></script>
+        <script src="js/loading.js"></script>
+        <script src="js/rightResizer.js"></script>
+        <script src="js/terminalClose.js"></script>
+        <script src="js/shopCategorySelector.js"></script>
+    </body>
+</html>

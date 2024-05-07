@@ -1,0 +1,9 @@
+:root{
+    --background-color : #25221e;
+    --secondary-background-color: #35322e;
+    --text-color : #f8f4ef;
+    --loading-loader-color : #ec6d0a;
+    --font : monospace;
+    --right-resizer-color: #d06f25;
+    --terminal-close-cross-color: 208,111,37;
+}
