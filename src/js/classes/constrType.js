@@ -24,10 +24,11 @@ class ConstrType{
                 return ConstrType.all[i];
             }
         }
+        return null;
     }
 
     static Add(name, nbOfArgs){
-        if(ConstrType.Get(name) != undefined){
+        if(ConstrType.Get(name) != null){
             return false; //impossible to add this ConstrType, one already exists with that name
         }
         ConstrType.all.push(new ConstrType(name, nbOfArgs));
