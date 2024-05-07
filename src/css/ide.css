@@ -8,12 +8,13 @@
     left: 0px;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 #ide-left{
     background-color: var(--background-color);
     height: 100%;
-    width: 450px;
+    width: 25%;
     display: flex;
     flex-direction: column;
 }
@@ -29,14 +30,86 @@
     background-size: 14px 14px;
 }
 
-#ide-menu{
+#ide-middle-resizer{
+    background-color: var(--right-resizer-color);
+    width: 4px;
+    margin: 8px;
+    height: 200px;
+    border-radius: 10px;
+    cursor: w-resize;
+    box-shadow: 0px 0px 10px #00000050;
+}
+
+#ide-menu {
     background-color: var(--secondary-background-color);
-    height: 70px;
+    height: 3em;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0em 2em 0em 0.5em;
+
     border-radius: 0px 0px 15px 0px;
     box-shadow: 0px 0px 10px #00000050;
     z-index: 5;
+}
+
+#ide-menu > svg {
+    height: 3em;
+}
+
+#ide-menu-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2em;
+}
+
+.ide-menu-button {
+    width: 2em;
+    height: 2em;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    background-color: rgba(var(--terminal-close-cross-color), 0);
+    transition: 0.1s;
+}
+
+.ide-menu-button:hover {
+    background-color: rgba(var(--terminal-close-cross-color), 0.1);
+    transition: 0.1s;
+}
+
+.ide-menu-button > svg {
+    width: 75%;
+    height: 75%;
+}
+
+#ide-menu-save:hover > svg {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    from {transform: translateY(0px)}
+    10% {transform: translateY(-5px)}
+    30% {transform: translateY(0px)}
+    60% {transform: translateY(-2px)}
+    to {transform: translateY(0px)}
+}
+
+#ide-menu-open:hover > svg {
+    animation: squizze 0.5s ease;
+}
+
+@keyframes squizze {
+    from {transform: scale(1, 1)}
+    40% {transform: scale(1.2, 0.8)}
+    to {transform: scale(1, 1)}
 }
 
 #ide-shop{

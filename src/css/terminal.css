@@ -1,57 +1,70 @@
 #ide-terminal{
     background-color: var(--secondary-background-color);
     width: 100%;
-    height: 50%;
+    height: 15%;
     position: relative;
     transition: height 0.1s ease-out;
     border-radius: 15px 0px 0px 0px;
     box-shadow: 0px 0px 10px #00000050;
     z-index: 3;
+
 }
 
-#terminal-close{
+#ide-terminal-buttons {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
+    top: 0px;
+    right: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 0.5em;
+    padding: 0.5em;
+}
+
+.terminal-button {
+
+    width: 2em;
+    height: 2em;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
     background-color: rgba(var(--terminal-close-cross-color), 0);
     transition: 0.1s;
 }
 
-#terminal-close:hover{
+.terminal-button:hover {
     background-color: rgba(var(--terminal-close-cross-color), 0.1);
     transition: 0.1s;
 }
 
-.terminal-close-cross{
-    position: absolute;
-    width: 20px;
-    height: 2px;
-    background-color: rgba(var(--terminal-close-cross-color), 1);
-    top: 50%;
-    left: 50%;
+.terminal-button > svg {
+    width: 75%;
+    height: 75%;
 }
 
-#terminal-close-cross-a{
-    transform: translate(-50%, -50%) rotate(45deg);
+#terminal-run:hover {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    from {transform: rotate(0deg)}
+    20% {transform: rotate(10deg)}
+    50% {transform: rotate(-10deg)}
+    to {transform: rotate(0deg)}
+}
+
+#terminal-close > svg {
+    transform: rotate(0deg);
     transition: 0.2s;
 }
 
-#terminal-close-cross-b{
-    transform: translate(-50%, -50%) rotate(-45deg);
-    transition: 0.2s;
-}
-
-#terminal-close:hover > #terminal-close-cross-a{
-    transform: translate(-50%, -50%) rotate(135deg);
-    transition: 0.2s;
-}
-
-#terminal-close:hover > #terminal-close-cross-b{
-    transform: translate(-50%, -50%) rotate(45deg);
+#terminal-close:hover > svg{
+    transform: rotate(90deg);
     transition: 0.2s;
 }
 
