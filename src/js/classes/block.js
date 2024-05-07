@@ -1,5 +1,7 @@
 class Block{
-    constructor(domEl_, isInShop_){
+    constructor(domEl_, isInShop_, text_){
+        /** @type {string}*/
+        this.text = "";
         /** @type {Block}*/
         this.parent = null;
         /** @type {HTMLElement}*/
@@ -36,6 +38,14 @@ class Block{
         let testDiv = playground.appendChild(document.createElement("div"));
         testDiv.classList.add("test-block");
         new Block(testDiv, false);
+    }
+
+    static CheckFit(parentBlock, childBlock, holeId){
+        /*
+        This function returns true if childBlock can go in parentBlock in specific hole
+        This function doesn't take into account what was in hole and is trying to be replaced
+        */
+        
     }
 }
 
