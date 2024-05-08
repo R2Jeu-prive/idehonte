@@ -1,7 +1,15 @@
-.test-block{
+.test-block {
     position: absolute;
     height: 20px;
     width: 100px;
     background-color: #d9534f;
     z-index: 25;
+}
+
+.block {
+    width: 100px;
+    height: 25px;
+    min-height: 25px;
+
+    background-color: #d9534f;
 }

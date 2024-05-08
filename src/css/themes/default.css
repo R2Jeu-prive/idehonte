@@ -1,12 +1,49 @@
-:root{
-    --background-color : #25221e;
-    --secondary-background-color: #35322e;
-    --secondary: #35322e;
-    --text-color : #f8f4ef;
-    --loading-loader-color : #ec6d0a;
-    --font : monospace;
-    --right-resizer-color: #d06f25;
-    --terminal-close-cross-color: 208,111,37;
-    --svg-background: #35322e;
-    --svg-line: #d06f25;
+@font-face {
+    font-family: overpass_mono;
+    src: url(../../font/overpass_mono/static/OverpassMono-Regular.ttf);
 }
+
+:root{
+    --c-body: #25221E;
+
+    --c-primary: #DA762F;
+    --c-primary-0: #DA762F00;
+    --c-primary-10: #DA762F19;
+    --c-primary-20: #DA762F4C;
+    
+    --c-secondary: #35322E;
+
+    --c-light: #F8F4EF;
+
+    --c-dark: #171513;
+    --c-dark-30: #1715134C;
+    
+    --font : overpass_mono;
+
+    --border-radius: 16px;
+    --shadow-length: 8px;
+}
+
+/* $opacity-to-hex: (
+    0: '00',
+    0.05: '0C',
+    0.1: '19',
+    0.15: '26',
+    0.2: '33',
+    0.25: '3F',
+    0.3: '4C',
+    0.35: '59',
+    0.4: '66',
+    0.45: '72',
+    0.5: '7F',
+    0.55: '8C',
+    0.6: '99',
+    0.65: 'A5',
+    0.7: 'B2',
+    0.75: 'BF',
+    0.8: 'CC',
+    0.85: 'D8',
+    0.9: 'E5',
+    0.95: 'F2',
+    1: 'FF'
+) */
