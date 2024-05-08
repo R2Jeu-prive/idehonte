@@ -33,7 +33,8 @@ class Block{
         /** @type {HTMLElement}*/
         this.domEl = document.createElement("div");
         Block.shop.appendChild(this.domEl);
-        this.domEl.classList.add("test-block");
+        this.domEl.classList.add("block");
+        this.domEl.classList.add("selection-disabled");
         this.domEl.id = id;
         this.domEl.innerHTML = this.text;
         /** @type {Block[]}*/
@@ -79,6 +80,14 @@ class Block{
             this.dragging = false;
             //[TODO] use FitInParent if block is let go in a hole
         })
+    }
+
+    /**
+     * @param {HTMLElement} category 
+     */
+    SetShopCategory(category){
+        if(!this.isInShop){console.error("can't assign shop category to a block that is not in shop");return;}
+        category.insertAdjacentElement("afterend", this.domEl);
     }
 
     /** 

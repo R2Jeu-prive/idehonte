@@ -1,13 +1,15 @@
-.test-block {
-    position: absolute;
-    height: 20px;
-    width: 100px;
+#shop-stall .block {
+    position: relative;
+    width: 150px;
+    height: 25px;
+    min-height: 25px;
+
     background-color: #d9534f;
-    z-index: 25;
 }
 
-.block {
-    width: 100px;
+#ide-playground .block {
+    position: absolute;
+    width: 150px;
     height: 25px;
     min-height: 25px;
 
