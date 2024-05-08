@@ -1,6 +1,7 @@
 class ExpressionBlock extends Block{
     constructor(){
         super()
+        this.evalType = null;
     }
 
     GetExpressionType(){

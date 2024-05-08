@@ -1,7 +1,7 @@
 class Block{
     constructor(domEl_, isInShop_, text_){
         /** @type {string}*/
-        this.text = "";
+        this.text = text_;
         /** @type {Block}*/
         this.parent = null;
         /** @type {HTMLElement}*/
