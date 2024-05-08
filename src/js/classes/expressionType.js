@@ -28,18 +28,6 @@ class ExpressionTypeUnderscore extends ExpressionType{ //ex: _
     }
 }
 
-class ExpressionTypeParantheses extends ExpressionType{ //ex: (int)
-    constructor(childExpr_){
-        super();
-        /** @type {ExpressionType}*/
-        this.childExpr = childExpr_;
-    }
-
-    ToText(){
-        return "(" + this.childExpr.ToText() + ")";
-    }
-}
-
 class ExpressionTypeArrow extends ExpressionType{ //ex: int -> float -> string
     constructor(childrenExpressionTypes_){
         super();

@@ -1,7 +1,7 @@
 function loadingManager(){
     // detect first load
-    var ready = false
-    var observer = new MutationObserver(function(){
+    let ready = false
+    let observer = new MutationObserver(function(){
         if(ready){return;}
         ready = true;
         setTimeout(function(){ // this is bullshit waiting so people look at how amazing the loader is
