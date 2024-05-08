@@ -1,11 +1,27 @@
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+/**
+ * @param {string[]} usedIdents 
+ * @returns {string} a new ident that is not in usedIdents
+ */
+function GetNewIdent(usedIdents){
+    let start = "";
+    while(true){
+        for(let i = 0; i < 26; i++){
+            if(!usedIdents.includes(alphabet[i])){
+                return start + alphabet[i];
+            }
+        }
+        start = start + "a";
+    }
+}
+
 class ExpressionType{
     constructor(){}
 
     ToText(){
         if(this instanceof ExpressionTypeIdent){
             return "\'" + this.letter;
-        }else if(this instanceof ExpressionTypeUnderscore){
-            return "_";
         }else if(this instanceof ExpressionTypeArrow){
             let text = this.childrenExpressionTypes[0].ToText();
             for(let i = 1; i < this.childrenExpressionTypes.length; i++){
@@ -42,8 +58,6 @@ class ExpressionType{
     GetIdentChars(){
         if(this instanceof ExpressionTypeIdent){
             return [this.letter];
-        }else if(this instanceof ExpressionTypeUnderscore){
-            return [];
         }else if(this instanceof ExpressionTypeArrow || this instanceof ExpressionTypeStar || this instanceof ExpressionTypeConstr){
             let res = [];
             for(let i = 0; i < this.childrenExpressionTypes.length; i++){
@@ -85,9 +99,20 @@ class ExpressionType{
             otherExpressionType.ReplaceIdent(oldIdent, newIdent);
         }
     }
+    
+    /**
+     * @param {ExpressionType} otherExpressionType assumed to have no common idents with this ExpressionType
+     * @returns {boolean} true if both ExpressionTypes are "compatible" (definition is [TODO])
+     */
+    CheckCompatibilityWith(otherExpressionType){
+        if(otherExpressionType instanceof ExpressionTypeIdent){
+            //[TODO]
+        }
+    }
 }
 
 class ExpressionTypeIdent extends ExpressionType{ //ex: 'a
+    /** @param {string} letter_*/
     constructor(letter_){
         super();
         /** @type {string}*/
@@ -95,13 +120,8 @@ class ExpressionTypeIdent extends ExpressionType{ //ex: 'a
     }
 }
 
-class ExpressionTypeUnderscore extends ExpressionType{ //ex: _
-    constructor(){
-        super();
-    }
-}
-
 class ExpressionTypeArrow extends ExpressionType{ //ex: int -> float -> string
+    /** @param {ExpressionType[]} childrenExpressionTypes_*/
     constructor(childrenExpressionTypes_){
         super();
         /** @type {ExpressionType[]}*/
@@ -110,6 +130,7 @@ class ExpressionTypeArrow extends ExpressionType{ //ex: int -> float -> string
 }
 
 class ExpressionTypeStar extends ExpressionType{ //ex: int * float * string
+    /** @param {ExpressionType[]} childrenExpressionTypes_*/
     constructor(childrenExpressionTypes_){
         super();
         /** @type {ExpressionType[]}*/
@@ -118,6 +139,10 @@ class ExpressionTypeStar extends ExpressionType{ //ex: int * float * string
 }
 
 class ExpressionTypeConstr extends ExpressionType{ //ex: ('a, 'b) graph
+    /** 
+     * @param {ExpressionType[]} childrenExpressionTypes_
+     * @param {ConstrType} childConstrType_
+    */
     constructor(childrenExpressionTypes_, childConstrType_){
         super();
         /** @type {ExpressionType[]}*/
