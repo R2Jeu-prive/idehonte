@@ -24,6 +24,7 @@ class Block{
      */
     constructor(text_){
         let id = Date.now();
+        while(Block.all[this.id] != undefined){this.id ++;}
         Block.all[id] = this;
 
         /** @type {string}*/
@@ -125,10 +126,23 @@ class Block{
         Block.playground.appendChild(this.domEl);
     }
 
+    
+    CheckFit(childBlock, spot){
+        console.error("cannot CheckFit any block");
+    }
+
     /**
      * @returns {object[]} an array of {'id':id, 'spot':spot} of all spots in which this Block can be Fit
      */
     GetPossibleSpots(){
-        return Block.GetAllEmptySpots();//[TODO] filter possible slots
+        let allEmpty = Block.GetAllEmptySpots();//[TODO] filter possible slots
+        let valid = [];
+        allEmpty.forEach(el => {
+            let blockId = el.id;
+            let spot = el.spot;
+            if(Block.all[blockId].CheckFit(this, spot)){
+                valid.push(el);
+            }
+        });
     }
 }
