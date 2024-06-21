@@ -14,7 +14,9 @@ class IntConstantEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        return super.Duplicate(new IntConstantEB(this.constant));
+        let copy = new IntConstantEB(this.constant);
+        copy.DuplicateClassList(this)
+        return copy;
     }
 
     CheckValid(){

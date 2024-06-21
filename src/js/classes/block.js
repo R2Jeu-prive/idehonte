@@ -170,14 +170,10 @@ class Block{
         category.insertAdjacentElement("afterend", this.domEl);
     }
 
-    /** 
-     * @returns {Block}
-    */
-    Duplicate(block) {
-        this.domEl.classList.forEach(token => 
-            block.domEl.classList.add(token)
-        )
-        return block
+    DuplicateClassList(fromBlock) {
+        fromBlock.domEl.classList.forEach(token => 
+            this.domEl.classList.add(token)
+        );
     }
 
     Delete(){
@@ -187,7 +183,7 @@ class Block{
             }
         }
         this.domEl.remove();
-        Block.all[this.id] = undefined;
+        delete Block.all[this.id];
     }
 
     /**
@@ -227,7 +223,7 @@ class Block{
             let spot = el.spot;
             if(Block.all[blockId].isInShop)
             this.FitInParent(Block.all[blockId], spot, false);
-            let root = this.parentBlock;
+            let root = this;
             while(root.parentBlock != null){root = root.parentBlock;}
             let thisValid = root.CheckValid();
             this.UnFit(false);

@@ -9,7 +9,9 @@ class PrintIntEB extends ExpressionBlock{
     }
     
     Duplicate(){
-        return super.Duplicate(new PrintIntEB());
+        let copy = new PrintIntEB();
+        copy.DuplicateClassList(this)
+        return copy;
     }
 
     CheckValid(){
