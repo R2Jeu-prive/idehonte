@@ -78,34 +78,29 @@ class Block{
         })
 
         document.addEventListener("mousemove", (e) => {
-            if(this.dragging){
-                this.domEl.style.left = (e.screenX - this.draggingOffset[0]) + "px";
-                this.domEl.style.top = (e.screenY - this.draggingOffset[1]) + "px";
-            }
+            if (!this.dragging) { return; }
 
-            if (this.dragging) {
-                for (const data of this.GetPossibleSpots()) {
-                    const blockId = data.id;
-                    const spotIndex = data.spot;
-    
-                    const block = Block.all[blockId];
-    
-                    if (block.isInShop) { continue; }
+            this.domEl.style.left = (e.screenX - this.draggingOffset[0]) + "px";
+            this.domEl.style.top  = (e.screenY - this.draggingOffset[1]) + "px";
 
-                    if (collide(this.domEl, block.domEl)) {
-                        let spot = block.domEl.querySelectorAll("div")[spotIndex];
-    
-                        if (collide(this.domEl, spot)) {
-                            spot.classList.add("highlight");
-                        } else {
-                            spot.classList.remove("highlight");
-                        }
+            for (const data of this.GetPossibleSpots()) {
+                const block = Block.all[data.id];
+
+                if (block.isInShop) { continue; }
+
+                if (collide(this.domEl, block.domEl)) {
+                    let spot = block.domEl.querySelectorAll("div")[data.spot];
+
+                    if (collide(this.domEl, spot)) {
+                        spot.classList.add("highlight");
                     } else {
-                        block.domEl.querySelectorAll("div").forEach(emptySpot => {
-                            emptySpot.classList.remove("highlight");
-                        })
-                    };
-                }
+                        spot.classList.remove("highlight");
+                    }
+                } else {
+                    block.domEl.querySelectorAll("div").forEach(emptySpot => {
+                        emptySpot.classList.remove("highlight");
+                    })
+                };
             }
             
         })
@@ -197,7 +192,9 @@ class Block{
     FitInParent(parentBlock, spot, affectDOM = true){
         this.parentBlock = parentBlock;
         parentBlock.childrenBlocks[spot] = this;
-        if(affectDOM){parentBlock.domEl.appendChild(this.domEl);}
+        if(affectDOM){
+            parentBlock.domEl.appendChild(this.domEl);
+        }
     }
 
     UnFit(affectDOM = true){
@@ -205,7 +202,9 @@ class Block{
         let spot = this.parentBlock.childrenBlocks.indexOf(this);
         this.parentBlock.childrenBlocks[spot] = null;
         this.parentBlock = null;
-        if(affectDOM){Block.playground.appendChild(this.domEl);}
+        if(affectDOM){
+            Block.playground.appendChild(this.domEl);
+        }
     }
 
     
