@@ -1,21 +1,25 @@
 function shopFiller() {
-    let section1 = document.getElementById("section-assignments");
-    let section2 = document.getElementById("section-control-flow");
-    let section3 = document.getElementById("section-operators");
-    let section4 = document.getElementById("section-list");
-    let section5 = document.getElementById("section-array");
+    // Assignments
+    const sectionAssignments = document.getElementById("section-assignments");
+    (new PrintIntEB()).SetShopCategory(sectionAssignments);
 
-    for(let i = 0; i < 3; i++){
-        let block = new PrintIntEB();
-        block.SetShopCategory(section1);
+    // Control Flow
+    const sectionControlFlow = document.getElementById("section-control-flow");
+    for (let i = 15; i > 0; i--) {
+        const block = new IntConstantEB(i);
+        block.SetShopCategory(sectionControlFlow);
     }
-    for(let i = 0; i < 4; i++){
-        let block = new PlusEB();
-        block.SetShopCategory(section2);
-    }
-    for(let i = 0; i < 3; i++){
-        let block = new IntConstantEB(i);
-        block.SetShopCategory(section3);
-    }
+
+    // Operators
+    const sectionOperators = document.getElementById("section-operators");
+
+    (new PlusEB()).SetShopCategory(sectionOperators);
+
+
+    // List
+    const sectionList = document.getElementById("section-list");
+
+    // Array
+    const sectionArray = document.getElementById("section-array");
 }
 shopFiller();

@@ -51,14 +51,25 @@ class Block{
         this.isInShop = true;
         /** @type {boolean}*/
         this.dragging = false;
+        /** @type {boolean}*/
+        this.frozzen = false;
         /** @type {number[]}*/
         this.draggingOffset = [0,0];
 
+        this.x = 0;
+        this.y = 0;
+
         this.domEl.addEventListener("mousedown", (e) => {
             if(e.button != 0){return;}
+
+            if (this.frozzen) {
+                this.frozzen = false;
+                return;
+            }
+
             if(!this.isInShop){
                 this.UnFit();
-                this.dragging = true;
+                this.setDragging(true);
                 let offsetX = e.screenX - this.domEl.getBoundingClientRect().left;
                 let offsetY = e.screenY - this.domEl.getBoundingClientRect().top;
                 this.draggingOffset = [offsetX, offsetY];
@@ -66,7 +77,7 @@ class Block{
                 let dupe = this.Duplicate();
                 dupe.isInShop = false;
                 Block.playground.appendChild(dupe.domEl);
-                dupe.dragging = true;
+                dupe.setDragging(true);
                 let offsetX = e.screenX - this.domEl.getBoundingClientRect().left;
                 let offsetY = e.screenY - this.domEl.getBoundingClientRect().top;
                 dupe.draggingOffset = [offsetX, offsetY];
@@ -78,45 +89,39 @@ class Block{
         })
 
         document.addEventListener("mousemove", (e) => {
-            if(this.dragging){
-                this.domEl.style.left = (e.screenX - this.draggingOffset[0]) + "px";
-                this.domEl.style.top = (e.screenY - this.draggingOffset[1]) + "px";
-            }
+            if (!this.dragging) { return; }
 
-            if (this.dragging) {
-                for (const data of this.GetPossibleSpots()) {
-                    const blockId = data.id;
-                    const spotIndex = data.spot;
-    
-                    const block = Block.all[blockId];
-    
-                    if (block.isInShop) { continue; }
+            this.moveTo(e.screenX - this.draggingOffset[0], e.screenY - this.draggingOffset[1]);
 
-                    if (collide(this.domEl, block.domEl)) {
-                        let spot = block.domEl.querySelectorAll("div")[spotIndex];
-    
-                        if (collide(this.domEl, spot)) {
-                            spot.classList.add("highlight");
-                        } else {
-                            spot.classList.remove("highlight");
-                        }
+            for (const data of this.GetPossibleSpots()) {
+                const block = Block.all[data.id];
+
+                if (block.isInShop) { continue; }
+
+                if (collide(this.domEl, block.domEl)) {
+                    let spot = block.domEl.querySelectorAll("div")[data.spot];
+
+                    if (collide(this.domEl, spot)) {
+                        spot.classList.add("highlight");
                     } else {
-                        block.domEl.querySelectorAll("div").forEach(emptySpot => {
-                            emptySpot.classList.remove("highlight");
-                        })
-                    };
-                }
+                        spot.classList.remove("highlight");
+                    }
+                } else {
+                    block.domEl.querySelectorAll("div").forEach(emptySpot => {
+                        emptySpot.classList.remove("highlight");
+                    })
+                };
             }
             
         })
 
         document.addEventListener("mouseup", (e) => {
-            if (!this.isInShop && collide(this.domEl, Block.shop)) {
-                this.Delete()
-                return;
-            }
-
             if (this.dragging) {
+                if (!this.isInShop && collide(this.domEl, Block.shop)) {
+                    this.Delete()
+                    return;
+                }
+
                 for (const data of this.GetPossibleSpots()) {
                     const blockId = data.id;
                     const spotIndex = data.spot;
@@ -129,8 +134,6 @@ class Block{
                         let spot = block.domEl.querySelectorAll("div")[spotIndex];
     
                         if (collide(this.domEl, spot)) {
-                            console.log("fit");
-                            spot.classList.remove("empty");
                             spot.classList.remove("highlight");
                             this.FitInParent(block, spotIndex);
                             break;
@@ -139,10 +142,32 @@ class Block{
                 }
             }
 
-            this.dragging = false;
+            this.setDragging(false);
 
             //[TODO] use FitInParent if block is let go in a hole
         })
+    }
+
+    moveTo(x, y) {
+        this.x = x;
+        this.y = y;
+
+        this.domEl.style.left = this.x + "px";
+        this.domEl.style.top  = this.y + "px";
+    }
+
+    moveBy(x, y) {
+        this.moveTo(this.x + x, this.y + y);
+    }
+
+    setDragging(dragging) {
+        this.dragging = dragging;
+
+        if (this.dragging) {
+            this.domEl.classList.add("dragging");
+        } else {
+            this.domEl.classList.remove("dragging");
+        }
     }
 
     /**
@@ -171,14 +196,14 @@ class Block{
     }
 
     DuplicateClassList(fromBlock) {
-        fromBlock.domEl.classList.forEach(token => 
-            this.domEl.classList.add(token)
-        );
+        fromBlock.domEl.classList.forEach(token => {
+            this.domEl.classList.add(token);
+        });
     }
 
-    Delete(){
-        for(let i = 0; i < this.childrenBlocks.length; i++){
-            if(this.childrenBlocks[i] != null){
+    Delete() {
+        for (let i = 0; i < this.childrenBlocks.length; i++){
+            if (this.childrenBlocks[i] != null) {
                 this.childrenBlocks[i].Delete();
             }
         }
@@ -193,15 +218,35 @@ class Block{
     FitInParent(parentBlock, spot, affectDOM = true){
         this.parentBlock = parentBlock;
         parentBlock.childrenBlocks[spot] = this;
-        if(affectDOM){parentBlock.domEl.appendChild(this.domEl);}
+        if (affectDOM) {
+            this.domEl.classList.add("inside");
+            parentBlock.domEl.querySelectorAll("div")[spot].appendChild(this.domEl);
+            parentBlock.domEl.querySelectorAll("div")[spot].classList.remove("empty");
+        }
     }
 
     UnFit(affectDOM = true){
-        if(this.parentBlock == null){return;}
-        let spot = this.parentBlock.childrenBlocks.indexOf(this);
+        if (this.parentBlock == null) { return; }
+        const spot = this.parentBlock.childrenBlocks.indexOf(this);
         this.parentBlock.childrenBlocks[spot] = null;
+        
+        if (affectDOM) {
+            this.domEl.classList.remove("inside");
+            this.parentBlock.domEl.querySelectorAll("div")[spot].removeChild(this.domEl);
+            this.parentBlock.domEl.querySelectorAll("div")[spot].classList.add("empty");
+            Block.playground.appendChild(this.domEl);     
+
+            this.domEl.style.left = (mouseX - this.draggingOffset[0]) + "px";
+            this.domEl.style.top  = (mouseY - this.draggingOffset[1]) + "px";
+
+            let parent = this.parentBlock;
+            while (parent) {
+                parent.frozzen = true;
+                parent = parent.parentBlock;
+            }
+        }
+
         this.parentBlock = null;
-        if(affectDOM){Block.playground.appendChild(this.domEl);}
     }
 
     
