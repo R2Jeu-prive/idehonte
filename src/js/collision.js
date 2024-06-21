@@ -1,3 +1,8 @@
+/**
+ * @param {Element} element1 
+ * @param {Element} element2 
+ * @returns {boolean}
+ */
 function collide(element1, element2) {
     rect1 = element1.getBoundingClientRect();
     rect2 = element2.getBoundingClientRect();
