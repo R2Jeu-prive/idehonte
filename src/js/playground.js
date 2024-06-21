@@ -18,7 +18,7 @@ function playgroundHandler() {
     });
 
     document.addEventListener("mousedown", event => {
-        const target = event.explicitOriginalTarget["getBoundingClientRect"] != undefined ? event.explicitOriginalTarget : event.explicitOriginalTarget.parentNode;
+        const target = event.target
         if (event.button == 2 && collide(target, playground)) {
             dragging = true;
         }
