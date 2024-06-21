@@ -263,17 +263,19 @@ class Block{
     GetPossibleSpots(){
         let allEmpty = Block.GetAllEmptySpots();//[TODO] filter possible spots
         let valid = [];
+        console.log("yop");
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            if(Block.all[blockId].isInShop)
-            this.FitInParent(Block.all[blockId], spot, false);
-            let root = this;
-            while(root.parentBlock != null){root = root.parentBlock;}
-            let thisValid = root.CheckValid();
-            this.UnFit(false);
-            if(thisValid && !Block.all[blockId].isInShop && blockId != this.id){
-                valid.push(el);
+            if(!Block.all[blockId].isInShop && blockId != this.id){
+                this.FitInParent(Block.all[blockId], spot, false);
+                let root = this;
+                while(root.parentBlock != null){root = root.parentBlock;}
+                let thisValid = root.CheckValid();
+                this.UnFit(false);
+                if(thisValid){
+                    valid.push(el);
+                }
             }
         });
         return valid;
