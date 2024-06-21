@@ -140,9 +140,10 @@ class Block{
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            if(Block.all[blockId].CheckFit(this, spot)){
+            //if(Block.all[blockId].CheckFit(this, spot)){
                 valid.push(el);
-            }
+            //}
         });
+        return valid;
     }
 }
