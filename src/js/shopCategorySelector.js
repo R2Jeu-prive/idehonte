@@ -5,7 +5,7 @@ function shopCategorySelectorManager() {
     let selected = categories[0];
 
     for (const category of categories) {
-        category.addEventListener("click", function(e) {
+        category.addEventListener("click", function (e) {
             selected = category;
             selector.style.top = selected.getBoundingClientRect().top + "px";
             for (const category of categories) {
