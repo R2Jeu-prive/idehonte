@@ -18,7 +18,7 @@ class Block{
             if(Block.all[id].isInShop){continue;}
             for(let spot = 0; spot < Block.all[id].childrenBlocks.length; spot++){
                 if(Block.all[id].childrenBlocks[spot] == null){
-                    res.push({'id':id, 'spot':spot});
+                    res.push({'id':parseInt(id), 'spot':spot});
                 }
             }
         }
@@ -276,12 +276,8 @@ class Block{
             let blockId = el.id;
             let spot = el.spot;
             if(!(Block.all[blockId].isInShop) && !excluded.includes(blockId)){
-                console.log(blockId, excluded, excluded.includes(blockId, 0), excluded[0] == blockId);
-                debugger;
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;
-                console.log(root);
-                debugger;
                 while(root.parentBlock != null){root = root.parentBlock;}
                 let thisValid = root.CheckValid();
                 this.UnFit(false);
