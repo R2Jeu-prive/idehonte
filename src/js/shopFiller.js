@@ -5,20 +5,16 @@ function shopFiller() {
     let section4 = document.getElementById("section-list");
     let section5 = document.getElementById("section-array");
     for(let i = 0; i < 3; i++){
-        let block = new ExpressionTypeBlockArrow(3);
+        let block = new PrintIntEB();
         block.SetShopCategory(section1);
     }
     for(let i = 0; i < 4; i++){
-        let block = new ExpressionTypeBlockArrow(2);
+        let block = new PlusEB();
         block.SetShopCategory(section2);
     }
     for(let i = 0; i < 3; i++){
-        let block = new ExpressionTypeBlockArrow(3);
+        let block = new IntConstantEB(i);
         block.SetShopCategory(section3);
-    }
-    for(let i = 0; i < 2; i++){
-        let block = new ExpressionTypeBlockIdent(["a","b",][i]);
-        block.SetShopCategory(section5);
     }
 }
 shopFiller();
