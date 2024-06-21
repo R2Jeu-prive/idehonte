@@ -24,7 +24,7 @@
     align-items: center;
 
     text-align: center;
-    font-size: 0.55em;
+    font-size: 0.65em;
     color: var(--c-primary);
     cursor: pointer;
     z-index: 5;
@@ -60,8 +60,8 @@
     position: absolute;
     pointer-events: none;
 
-    width: 3.7em;
-    height: 3.7em;
+    width: 4.5em;
+    height: 4.5em;
 
     background-color: var(--c-dark-30);
     box-shadow: 0px 0px 15px var(--c-dark) inset;

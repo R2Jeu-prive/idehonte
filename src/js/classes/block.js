@@ -128,7 +128,6 @@ class Block{
             }
 
             for (const data of this._possibleSpots) {
-                console.log(data);
                 const blockId = data.id;
                 const spotIndex = data.spot;
 

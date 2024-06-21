@@ -17,19 +17,13 @@ function leftResizerManager() {
 
     document.addEventListener("mousemove", function(e) {
         if (leftResizing) {
-            const newWidth = Math.max(leftResizingStartWidth - leftResizingStartX + e.screenX, 116);
+            const newWidth = Math.max(leftResizingStartWidth - leftResizingStartX + e.screenX, 200);
             ideLeft.style.width = newWidth + "px";
             
-            if (newWidth <= 292) {
+            if (newWidth <= 417) {
                 h1.style.display = "none";
             } else {
                 h1.style.display = "inline";
-            }
-
-            if (newWidth <= 156) {
-                icon.style.display = "none";
-            } else {
-                icon.style.display = "block";
             }
         }
     });
