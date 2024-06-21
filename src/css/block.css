@@ -1,15 +1,10 @@
 #shop-stall .block {
     position: relative;
-    width: 150px;
-    height: 25px;
-    min-height: 25px;
-
-    background-color: #d9534f;
 }
 
 .block {
     position: absolute;
-    width: 150px;
+    width: fit-content;
     height: 25px;
     min-height: 25px;
 

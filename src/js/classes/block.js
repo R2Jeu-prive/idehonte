@@ -3,6 +3,12 @@ class Block{
     static playground = document.getElementById("ide-playground");
     static shop = document.getElementById("shop-stall");
 
+    static categoryAssignments = document.getElementById("section-assignments");
+    static categoryControlFlow = document.getElementById("section-control-flow");
+    static categoryOperators = document.getElementById("section-operators");
+    static categoryList = document.getElementById("section-list");
+    static categoryArray = document.getElementById("section-array");
+
     /**
      * @returns {object[]} an array of {'id':id, 'spot':spot} of all empty spots in all blocks
      */
@@ -79,6 +85,10 @@ class Block{
 
         document.addEventListener("mouseup", (e) => {
             this.dragging = false;
+
+            if (!this.isInShop && collide(this.domEl, Block.shop)) {
+                this.Delete()
+            }
             //[TODO] use FitInParent if block is let go in a hole
         })
     }
@@ -88,6 +98,25 @@ class Block{
      */
     SetShopCategory(category){
         if(!this.isInShop){console.error("can't assign shop category to a block that is not in shop");return;}
+        
+        switch (category) {
+
+            case Block.categoryAssignments:
+                this.domEl.classList.add("assignment")
+                break;
+            case Block.categoryControlFlow:
+                this.domEl.classList.add("control-flow")
+                break;
+            case Block.categoryOperators:
+                this.domEl.classList.add("operator")
+                break;
+            case Block.categoryList:
+            case Block.categoryArray:
+                this.domEl.classList.add("module")
+                break;
+
+        }
+        
         category.insertAdjacentElement("afterend", this.domEl);
     }
 

@@ -4,6 +4,7 @@ function shopFiller() {
     let section3 = document.getElementById("section-operators");
     let section4 = document.getElementById("section-list");
     let section5 = document.getElementById("section-array");
+
     for(let i = 0; i < 3; i++){
         let block = new ExpressionTypeBlockArrow(3);
         block.SetShopCategory(section1);
