@@ -5,8 +5,8 @@ function shopFiller() {
 
     // Control Flow
     const sectionControlFlow = document.getElementById("section-control-flow");
-    for (let i = 0; i < 6; i++) {
-        let block = new IntConstantEB(i);
+    for (let i = 15; i > 0; i--) {
+        const block = new IntConstantEB(i);
         block.SetShopCategory(sectionControlFlow);
     }
 
