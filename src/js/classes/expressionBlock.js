@@ -1,6 +1,6 @@
 class ExpressionBlock extends Block{
 
-    static emptySlot = "<div class='empty'></div>";
+    static emptySlot = "<div class='slot empty'></div>";
     static text(txt) {
         return `<p>${txt}</p>`
     };

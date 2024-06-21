@@ -97,7 +97,7 @@ class Block{
                 if (block.isInShop) { continue; }
 
                 if (collide(this.domEl, block.domEl)) {
-                    let spot = block.domEl.querySelectorAll("div")[data.spot];
+                    let spot = block.domEl.querySelectorAll("div.slot")[data.spot];
 
                     if (collide(this.domEl, spot)) {
                         spot.classList.add("highlight");
@@ -124,6 +124,7 @@ class Block{
             }
 
             for (const data of this._possibleSpots) {
+                console.log(data);
                 const blockId = data.id;
                 const spotIndex = data.spot;
 
@@ -132,7 +133,7 @@ class Block{
                 if (block.isInShop) { continue; }
 
                 if (collide(this.domEl, block.domEl)) {
-                    let spot = block.domEl.querySelectorAll("div")[spotIndex];
+                    let spot = block.domEl.querySelectorAll("div.slot")[spotIndex];
 
                     if (collide(this.domEl, spot)) {
                         spot.classList.remove("highlight");
@@ -224,8 +225,8 @@ class Block{
         parentBlock.childrenBlocks[spot] = this;
         if (affectDOM) {
             this.domEl.classList.add("inside");
-            parentBlock.domEl.querySelectorAll("div")[spot].appendChild(this.domEl);
-            parentBlock.domEl.querySelectorAll("div")[spot].classList.remove("empty");
+            parentBlock.domEl.querySelectorAll("div.slot")[spot].appendChild(this.domEl);
+            parentBlock.domEl.querySelectorAll("div.slot")[spot].classList.remove("empty");
         }
     }
 
@@ -236,8 +237,8 @@ class Block{
         
         if (affectDOM) {
             this.domEl.classList.remove("inside");
-            this.parentBlock.domEl.querySelectorAll("div")[spot].removeChild(this.domEl);
-            this.parentBlock.domEl.querySelectorAll("div")[spot].classList.add("empty");
+            this.parentBlock.domEl.querySelectorAll("div.slot")[spot].removeChild(this.domEl);
+            this.parentBlock.domEl.querySelectorAll("div.slot")[spot].classList.add("empty");
             Block.playground.appendChild(this.domEl);     
 
             this.domEl.style.left = (mouseX - this.draggingOffset[0]) + "px";
@@ -262,7 +263,6 @@ class Block{
         let allEmpty = Block.GetAllEmptySpots(); //[TODO] filter possible spots
         let excluded = this.GetChildIds();
         excluded.push(this.id);
-        console.log(excluded);
         let valid = [];
         allEmpty.forEach(el => {
             let blockId = el.id;
