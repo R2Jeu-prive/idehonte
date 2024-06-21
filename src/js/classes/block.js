@@ -127,6 +127,11 @@ class Block{
     }
 
     
+    /**
+     * @param {Block} childBlock 
+     * @param {number} spot 
+     * @returns {boolean}
+     */
     CheckFit(childBlock, spot){
         console.error("cannot CheckFit any block");
     }
@@ -140,9 +145,9 @@ class Block{
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            //if(Block.all[blockId].CheckFit(this, spot)){
+            if(Block.all[blockId].CheckFit(this, spot)){
                 valid.push(el);
-            //}
+            }
         });
         return valid;
     }

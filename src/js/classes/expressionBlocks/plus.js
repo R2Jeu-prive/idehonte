@@ -1,10 +1,14 @@
 class PlusEB extends ExpressionBlock{
     constructor(){
-        super("print_int %e")
+        super("%e + %e")
         this.childrenBlocks = [null, null];
     }
 
     GetEvalType(){
         return new ExpressionTypeConstr([], ConstrType.Get("int"));
+    }
+
+    Duplicate(){
+        return new PlusEB();
     }
 }

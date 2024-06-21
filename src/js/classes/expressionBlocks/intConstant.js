@@ -4,10 +4,15 @@ class IntConstantEB extends ExpressionBlock{
      */
     constructor(n){
         super(n.toString(10))
+        this.constant = n;
         this.childrenBlocks = [];
     }
 
     GetEvalType(){
         return new ExpressionTypeConstr([], ConstrType.Get("int"));
+    }
+
+    Duplicate(){
+        return new IntConstantEB(this.constant);
     }
 }
