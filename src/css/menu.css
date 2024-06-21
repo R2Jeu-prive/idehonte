@@ -24,7 +24,10 @@
 }
 
 #ide-menu-icon > svg {
-    height: 80%;
+    --size: var(--menu-height);
+    height: var(--size);
+    width: var(--size);
+    min-width: var(--size);
 }
 
 #ide-menu-icon path, #ide-menu-icon rect {
@@ -32,7 +35,7 @@
 }
 
 #ide-menu-icon > h1 {
-    max-width: 12em;
+    max-width: 20em;
 
     color: var(--c-primary);
     font-size: x-small;
