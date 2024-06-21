@@ -268,12 +268,13 @@ class Block{
      */
     GetPossibleSpots() {
         let allEmpty = Block.GetAllEmptySpots(); //[TODO] filter possible spots
+        let excluded = this.GetChildIds();
+        excluded.push(this.id);
         let valid = [];
-        console.log("yop");
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            if(!Block.all[blockId].isInShop && blockId != this.id){
+            if(!(Block.all[blockId].isInShop) && !excluded.includes(blockId)){
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;
                 while(root.parentBlock != null){root = root.parentBlock;}
@@ -285,5 +286,14 @@ class Block{
             }
         });
         return valid;
+    }
+
+    GetChildIds(){
+        let list = [];
+        this.childrenBlocks.forEach(bl => {
+            list.push(bl.id);
+            list = list.concat(bl.GetChildIds())
+        })
+        return list;
     }
 }
