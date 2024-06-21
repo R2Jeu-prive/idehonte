@@ -12,6 +12,6 @@ class IntConstantEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        return new IntConstantEB(this.constant);
+        return super.Duplicate(new IntConstantEB(this.constant));
     }
 }

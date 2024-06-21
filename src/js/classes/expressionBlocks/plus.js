@@ -9,6 +9,6 @@ class PlusEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        return new PlusEB();
+        return super.Duplicate(new PlusEB());
     }
 }

@@ -100,7 +100,6 @@ class Block{
         if(!this.isInShop){console.error("can't assign shop category to a block that is not in shop");return;}
         
         switch (category) {
-
             case Block.categoryAssignments:
                 this.domEl.classList.add("assignment")
                 break;
@@ -114,7 +113,6 @@ class Block{
             case Block.categoryArray:
                 this.domEl.classList.add("module")
                 break;
-
         }
         
         category.insertAdjacentElement("afterend", this.domEl);
@@ -123,8 +121,11 @@ class Block{
     /** 
      * @returns {Block}
     */
-    Duplicate(){
-        console.error("can't duplicate block that is instance of nothing");
+    Duplicate(block) {
+        this.domEl.classList.forEach(token => 
+            block.domEl.classList.add(token)
+        )
+        return block
     }
 
     Delete(){

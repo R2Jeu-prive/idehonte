@@ -9,6 +9,6 @@ class PrintIntEB extends ExpressionBlock{
     }
     
     Duplicate(){
-        return new PrintIntEB();
+        return super.Duplicate(new PrintIntEB());
     }
 }
