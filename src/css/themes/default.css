@@ -21,9 +21,13 @@
     --font : overpass_mono;
 
     --c-block-assignment: #8AADF4;
+    --c-block-assignment-border: #7894cc;
     --c-block-control-flow: #C6A0F6;
+    --c-block-control-flow-border: #b291da;
     --c-block-operator: #8BD5CA;
+    --c-block-operator-border: #74b3a9;
     --c-block-module: #EED49F;
+    --c-block-module-border: #c4ae83;
 
     --border-radius: 16px;
     --shadow-length: 8px;
