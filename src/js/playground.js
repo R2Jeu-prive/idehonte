@@ -18,7 +18,7 @@ function playgroundHandler() {
     });
 
     document.addEventListener("mousedown", event => {
-        const target = event.target
+        const target = event.target;
         if (event.button == 2 && collide(target, playground)) {
             dragging = true;
         }
