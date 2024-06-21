@@ -1,4 +1,10 @@
 class ExpressionBlock extends Block{
+
+    static emptySlot = "<div class='empty'></div>";
+    static text(txt) {
+        return `<p>${txt}</p>`
+    };
+
     constructor(text_){
         super(text_)
     }

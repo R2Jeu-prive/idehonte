@@ -1,6 +1,6 @@
 class PlusEB extends ExpressionBlock{
     constructor(){
-        super("print_int %e")
+        super(ExpressionBlock.emptySlot + ExpressionBlock.text("+") + ExpressionBlock.emptySlot)
         this.childrenBlocks = [null, null];
     }
 

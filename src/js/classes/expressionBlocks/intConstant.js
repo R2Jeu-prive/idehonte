@@ -3,7 +3,7 @@ class IntConstantEB extends ExpressionBlock{
      * @param {number} n the value of this constant
      */
     constructor(n){
-        super(n.toString(10))
+        super(ExpressionBlock.text(n.toString(10)))
         this.childrenBlocks = [];
     }
 
