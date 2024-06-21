@@ -197,7 +197,7 @@ class Block{
     FitInParent(parentBlock, spot, affectDOM = true){
         this.parentBlock = parentBlock;
         parentBlock.childrenBlocks[spot] = this;
-        parentBlock.domEl.appendChild(this.domEl);
+        if(affectDOM){parentBlock.domEl.appendChild(this.domEl);}
     }
 
     UnFit(affectDOM = true){
@@ -205,7 +205,7 @@ class Block{
         let spot = this.parentBlock.childrenBlocks.indexOf(this);
         this.parentBlock.childrenBlocks[spot] = null;
         this.parentBlock = null;
-        Block.playground.appendChild(this.domEl);
+        if(affectDOM){Block.playground.appendChild(this.domEl);}
     }
 
     
