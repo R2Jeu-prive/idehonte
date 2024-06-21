@@ -3,7 +3,7 @@ class ExpressionBlock extends Block{
         super()
     }
 
-    GetExpressionType(){
+    GetEvalType(){
         console.error("cannot give expression type for any expression block");
     }
 }
