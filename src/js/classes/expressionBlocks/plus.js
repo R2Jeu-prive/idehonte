@@ -7,4 +7,8 @@ class PlusEB extends ExpressionBlock{
     GetEvalType(){
         return new ExpressionTypeConstr([], ConstrType.Get("int"));
     }
+
+    Duplicate(){
+        return new PlusEB();
+    }
 }

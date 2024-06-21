@@ -156,6 +156,11 @@ class Block{
     }
 
     
+    /**
+     * @param {Block} childBlock 
+     * @param {number} spot 
+     * @returns {boolean}
+     */
     CheckFit(childBlock, spot){
         console.error("cannot CheckFit any block");
     }

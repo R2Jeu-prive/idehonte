@@ -7,4 +7,8 @@ class PrintIntEB extends ExpressionBlock{
     GetEvalType(){
         return new ExpressionTypeConstr([], ConstrType.Get("unit"));
     }
+    
+    Duplicate(){
+        return new PrintIntEB();
+    }
 }
