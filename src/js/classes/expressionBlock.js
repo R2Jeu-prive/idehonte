@@ -1,6 +1,6 @@
 class ExpressionBlock extends Block{
-    constructor(){
-        super()
+    constructor(text_){
+        super(text_)
     }
 
     GetEvalType(){
