@@ -1,3 +1,7 @@
+function queryFirstChildrenDiv(element) {
+    return Array.from(element.children).filter(child => child.tagName === 'DIV');
+}
+
 class Block{
     static all = {}; //all blocks are stored here and acceccible via there id
     static playground = document.getElementById("ide-playground");
@@ -51,8 +55,6 @@ class Block{
         this.isInShop = true;
         /** @type {boolean}*/
         this.dragging = false;
-        /** @type {boolean}*/
-        this.frozzen = false;
         /** @type {number[]}*/
         this.draggingOffset = [0,0];
         this._possibleSpots = null;
@@ -60,13 +62,9 @@ class Block{
         this.x = 0;
         this.y = 0;
 
-        this.domEl.addEventListener("mousedown", (e) => {
+        this.onMouseDown = (e) => {
+            if (this.domEl != e.target) { return; }
             if(e.button != 0){return;}
-
-            if (this.frozzen) {
-                this.frozzen = false;
-                return;
-            }
 
             if (!this.isInShop) {
                 this.UnFit();
@@ -89,9 +87,10 @@ class Block{
                 fakeMouseMoveEvent.screenY = e.screenY;
                 document.dispatchEvent(fakeMouseMoveEvent);
             }
-        });
+        }
+        document.addEventListener("mousedown", this.onMouseDown);
 
-        document.addEventListener("mousemove", (e) => {
+        this.onMouseMove = (e) => {
             if (!this.dragging) { return; }
 
             this.moveTo(e.screenX - this.draggingOffset[0], e.screenY - this.draggingOffset[1]);
@@ -102,7 +101,7 @@ class Block{
                 if (block.isInShop) { continue; }
 
                 if (collide(this.domEl, block.domEl)) {
-                    let spot = block.domEl.querySelectorAll("div")[data.spot];
+                    let spot = queryFirstChildrenDiv(block.domEl)[data.spot];
 
                     if (collide(this.domEl, spot)) {
                         spot.classList.add("highlight");
@@ -116,42 +115,42 @@ class Block{
                 };
             }
             
-        })
+        }
+        document.addEventListener("mousemove", this.onMouseMove);
 
-        this.domEl.addEventListener("mouseup", (e) => {
-            if (this.dragging) {
-                if (!this.isInShop && collide(this.domEl, Block.shop)) {
-                    this.Delete();
-                    return;
-                }
-
-                for (const data of this._possibleSpots) {
-                    const blockId = data.id;
-                    const spotIndex = data.spot;
-    
-                    const block = Block.all[blockId];
-    
-                    if (block.isInShop) { continue; }
-
-                    if (collide(this.domEl, block.domEl)) {
-                        let spot = block.domEl.querySelectorAll("div")[spotIndex];
-    
-                        if (collide(this.domEl, spot)) {
-                            spot.classList.remove("highlight");
-                            this.FitInParent(block, spotIndex);
-                            break
-                        }
-                        spot.classList.remove("highlight");
-                    }
-                }
-
-                this.setDragging(false);
+        this.onMouseUp = (e) => {
+            if (this.domEl != e.target) { return; }
+            if (!this.dragging) { return; }
+        
+            if (!this.isInShop && collide(this.domEl, Block.shop)) {
+                this.Delete();
+                return;
             }
 
-            
+            for (const data of this._possibleSpots) {
+                console.log(data);
+                const blockId = data.id;
+                const spotIndex = data.spot;
 
-            //[TODO] use FitInParent if block is let go in a hole
-        })
+                const block = Block.all[blockId];
+
+                if (block.isInShop) { continue; }
+
+                if (collide(this.domEl, block.domEl)) {
+                    let spot = queryFirstChildrenDiv(block.domEl)[spotIndex];
+
+                    if (collide(this.domEl, spot)) {
+                        spot.classList.remove("highlight");
+                        this.FitInParent(block, spotIndex);
+                        break
+                    }
+                    spot.classList.remove("highlight");
+                }
+            }
+
+            this.setDragging(false);
+        }
+        document.addEventListener("mouseup", this.onMouseUp);
     }
 
     moveTo(x, y) {
@@ -208,6 +207,10 @@ class Block{
     }
 
     Delete() {
+        document.removeEventListener("mousedown", this.onMouseDown);
+        document.removeEventListener("mousemove", this.onMouseMove);
+        document.removeEventListener("mouseup", this.onMouseUp);
+
         for (let i = 0; i < this.childrenBlocks.length; i++){
             if (this.childrenBlocks[i] != null) {
                 this.childrenBlocks[i].Delete();
@@ -226,8 +229,8 @@ class Block{
         parentBlock.childrenBlocks[spot] = this;
         if (affectDOM) {
             this.domEl.classList.add("inside");
-            parentBlock.domEl.querySelectorAll("div")[spot].appendChild(this.domEl);
-            parentBlock.domEl.querySelectorAll("div")[spot].classList.remove("empty");
+            queryFirstChildrenDiv(parentBlock.domEl)[spot].appendChild(this.domEl);
+            queryFirstChildrenDiv(parentBlock.domEl)[spot].classList.remove("empty");
         }
     }
 
@@ -238,18 +241,12 @@ class Block{
         
         if (affectDOM) {
             this.domEl.classList.remove("inside");
-            this.parentBlock.domEl.querySelectorAll("div")[spot].removeChild(this.domEl);
-            this.parentBlock.domEl.querySelectorAll("div")[spot].classList.add("empty");
+            queryFirstChildrenDiv(this.parentBlock.domEl)[spot].removeChild(this.domEl);
+            queryFirstChildrenDiv(this.parentBlock.domEl)[spot].classList.add("empty");
             Block.playground.appendChild(this.domEl);     
 
             this.domEl.style.left = (mouseX - this.draggingOffset[0]) + "px";
             this.domEl.style.top  = (mouseY - this.draggingOffset[1]) + "px";
-
-            let parent = this.parentBlock;
-            while (parent) {
-                parent.frozzen = true;
-                parent = parent.parentBlock;
-            }
         }
 
         this.parentBlock = null;
@@ -270,7 +267,6 @@ class Block{
         let allEmpty = Block.GetAllEmptySpots(); //[TODO] filter possible spots
         let excluded = this.GetChildIds();
         excluded.push(this.id);
-        console.log(excluded);
         let valid = [];
         allEmpty.forEach(el => {
             let blockId = el.id;
