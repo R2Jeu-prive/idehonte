@@ -20,6 +20,11 @@
     
     --font : overpass_mono;
 
+    --c-block-assignment: #8AADF4;
+    --c-block-control-flow: #C6A0F6;
+    --c-block-operator: #8BD5CA;
+    --c-block-module: #EED49F;
+
     --border-radius: 16px;
     --shadow-length: 8px;
 }
