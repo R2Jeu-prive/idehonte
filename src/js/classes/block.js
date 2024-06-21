@@ -1,3 +1,7 @@
+function queryFirstChildrenDiv(element) {
+    return Array.from(element.children).filter(child => child.tagName === 'DIV');
+}
+
 class Block{
     static all = {}; //all blocks are stored here and acceccible via there id
     static playground = document.getElementById("ide-playground");
@@ -97,7 +101,7 @@ class Block{
                 if (block.isInShop) { continue; }
 
                 if (collide(this.domEl, block.domEl)) {
-                    let spot = block.domEl.querySelectorAll("div.slot")[data.spot];
+                    let spot = queryFirstChildrenDiv(block.domEl)[data.spot];
 
                     if (collide(this.domEl, spot)) {
                         spot.classList.add("highlight");
@@ -133,7 +137,7 @@ class Block{
                 if (block.isInShop) { continue; }
 
                 if (collide(this.domEl, block.domEl)) {
-                    let spot = block.domEl.querySelectorAll("div.slot")[spotIndex];
+                    let spot = queryFirstChildrenDiv(block.domEl)[spotIndex];
 
                     if (collide(this.domEl, spot)) {
                         spot.classList.remove("highlight");
@@ -225,8 +229,8 @@ class Block{
         parentBlock.childrenBlocks[spot] = this;
         if (affectDOM) {
             this.domEl.classList.add("inside");
-            parentBlock.domEl.querySelectorAll("div.slot")[spot].appendChild(this.domEl);
-            parentBlock.domEl.querySelectorAll("div.slot")[spot].classList.remove("empty");
+            queryFirstChildrenDiv(parentBlock.domEl)[spot].appendChild(this.domEl);
+            queryFirstChildrenDiv(parentBlock.domEl)[spot].classList.remove("empty");
         }
     }
 
@@ -237,8 +241,8 @@ class Block{
         
         if (affectDOM) {
             this.domEl.classList.remove("inside");
-            this.parentBlock.domEl.querySelectorAll("div.slot")[spot].removeChild(this.domEl);
-            this.parentBlock.domEl.querySelectorAll("div.slot")[spot].classList.add("empty");
+            queryFirstChildrenDiv(this.parentBlock.domEl)[spot].removeChild(this.domEl);
+            queryFirstChildrenDiv(this.parentBlock.domEl)[spot].classList.add("empty");
             Block.playground.appendChild(this.domEl);     
 
             this.domEl.style.left = (mouseX - this.draggingOffset[0]) + "px";
