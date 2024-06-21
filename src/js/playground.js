@@ -49,12 +49,15 @@ function playgroundHandler() {
         }
     });
     
-    // document.addEventListener("wheel", event => {
-    //     const scroll = event.wheelDeltaY;
-    //     zoom += scroll / 60;
-    //     zoom = clamp(3, zoom, 50);
-
-    //     body.style.backgroundSize = `${zoom}px ${zoom}px`;
-    // });
+    const playButton = document.getElementById("button-run");
+    document.addEventListener("keydown", event => {
+        if (event.key == "Enter") {
+            playButton.classList.add("animate");
+            setTimeout(() => {
+                playButton.classList.remove("animate");
+            }, 300);
+            playButton.click();
+        }
+    });
 }
 playgroundHandler();

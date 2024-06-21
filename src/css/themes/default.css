@@ -3,7 +3,7 @@
     src: url(../../font/overpass_mono/static/OverpassMono-Regular.ttf);
 }
 
-:root{
+:root {
     --c-body: #25221E;
 
     --c-primary: #DA762F;
