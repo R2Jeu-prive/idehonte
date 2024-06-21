@@ -55,6 +55,7 @@ class Block{
         this.frozzen = false;
         /** @type {number[]}*/
         this.draggingOffset = [0,0];
+        this._possibleSpots = null;
 
         this.x = 0;
         this.y = 0;
@@ -67,17 +68,19 @@ class Block{
                 return;
             }
 
-            if(!this.isInShop){
+            if (!this.isInShop) {
                 this.UnFit();
                 this.setDragging(true);
+                this._possibleSpots = this.GetPossibleSpots();
                 let offsetX = e.screenX - this.domEl.getBoundingClientRect().left;
                 let offsetY = e.screenY - this.domEl.getBoundingClientRect().top;
                 this.draggingOffset = [offsetX, offsetY];
-            }else{
+            } else {
                 let dupe = this.Duplicate();
                 dupe.isInShop = false;
                 Block.playground.appendChild(dupe.domEl);
                 dupe.setDragging(true);
+                dupe._possibleSpots = this.GetPossibleSpots();
                 let offsetX = e.screenX - this.domEl.getBoundingClientRect().left;
                 let offsetY = e.screenY - this.domEl.getBoundingClientRect().top;
                 dupe.draggingOffset = [offsetX, offsetY];
@@ -86,14 +89,14 @@ class Block{
                 fakeMouseMoveEvent.screenY = e.screenY;
                 document.dispatchEvent(fakeMouseMoveEvent);
             }
-        })
+        });
 
         document.addEventListener("mousemove", (e) => {
             if (!this.dragging) { return; }
 
             this.moveTo(e.screenX - this.draggingOffset[0], e.screenY - this.draggingOffset[1]);
 
-            for (const data of this.GetPossibleSpots()) {
+            for (const data of this._possibleSpots) {
                 const block = Block.all[data.id];
 
                 if (block.isInShop) { continue; }
@@ -115,14 +118,14 @@ class Block{
             
         })
 
-        document.addEventListener("mouseup", (e) => {
+        this.domEl.addEventListener("mouseup", (e) => {
             if (this.dragging) {
                 if (!this.isInShop && collide(this.domEl, Block.shop)) {
-                    this.Delete()
+                    this.Delete();
                     return;
                 }
 
-                for (const data of this.GetPossibleSpots()) {
+                for (const data of this._possibleSpots) {
                     const blockId = data.id;
                     const spotIndex = data.spot;
     
@@ -136,13 +139,16 @@ class Block{
                         if (collide(this.domEl, spot)) {
                             spot.classList.remove("highlight");
                             this.FitInParent(block, spotIndex);
-                            break;
+                            break
                         }
+                        spot.classList.remove("highlight");
                     }
                 }
+
+                this.setDragging(false);
             }
 
-            this.setDragging(false);
+            
 
             //[TODO] use FitInParent if block is let go in a hole
         })
@@ -260,8 +266,8 @@ class Block{
     /**
      * @returns {object[]} an array of {'id':id, 'spot':spot} of all spots in which this Block can be Fit
      */
-    GetPossibleSpots(){
-        let allEmpty = Block.GetAllEmptySpots();//[TODO] filter possible spots
+    GetPossibleSpots() {
+        let allEmpty = Block.GetAllEmptySpots(); //[TODO] filter possible spots
         let valid = [];
         console.log("yop");
         allEmpty.forEach(el => {

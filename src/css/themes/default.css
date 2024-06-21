@@ -19,6 +19,7 @@
     --c-dark-30: #1715134C;
     
     --font : overpass_mono;
+    --c-text: var(--c-light);
 
     --c-block-assignment: #8AADF4;
     --c-block-assignment-border: #7894cc;
