@@ -1,7 +1,6 @@
 class PrintIntEB extends ExpressionBlock{
     constructor(){
-        super("print_int %e");
-        /** @type {Block[]} */
+        super(ExpressionBlock.text("print_int") + ExpressionBlock.emptySlot)
         this.childrenBlocks = [null];
     }
 
