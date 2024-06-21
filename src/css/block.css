@@ -7,9 +7,45 @@
 }
 
 .block {
-    width: 100px;
-    height: 25px;
-    min-height: 25px;
+    width: fit-content;
+    /* height: 25px;
+    min-height: 25px; */
 
-    background-color: #d9534f;
+    border-radius: 5px;
+
+    font-size: smaller;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 5px 8px 5px 8px;
+}
+
+.block.assignment {
+    background-color: var(--c-block-assignment);
+}
+
+.block.control-flow {
+    background-color: var(--c-block-control-flow);
+}
+
+.block.operator {
+    background-color: var(--c-block-operator);
+}
+
+.block.module {
+    background-color: var(--c-block-module);
+}
+
+.block p {
+    margin: 0px;
+}
+
+.block div.empty {
+    width: 24px;
+    height: 16px;
+
+    border-radius: 5px;
+
+    background-color: var(--c-dark-30);
 }
