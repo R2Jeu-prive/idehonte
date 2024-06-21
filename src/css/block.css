@@ -46,3 +46,7 @@
 
     background-color: var(--c-dark-30);
 }
+
+.block div.empty.highlight {
+    outline: solid var(--c-light);
+}

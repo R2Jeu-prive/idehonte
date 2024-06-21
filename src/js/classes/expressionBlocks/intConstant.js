@@ -5,6 +5,7 @@ class IntConstantEB extends ExpressionBlock{
     constructor(n){
         super(ExpressionBlock.text(n.toString(10)))
         this.childrenBlocks = [];
+        this.constant = n;
     }
 
     GetEvalType(){
