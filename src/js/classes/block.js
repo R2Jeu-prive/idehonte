@@ -18,7 +18,7 @@ class Block{
             if(Block.all[id].isInShop){continue;}
             for(let spot = 0; spot < Block.all[id].childrenBlocks.length; spot++){
                 if(Block.all[id].childrenBlocks[spot] == null){
-                    res.push({'id':id, 'spot':spot});
+                    res.push({'id':parseInt(id), 'spot':spot});
                 }
             }
         }
@@ -74,7 +74,7 @@ class Block{
                 dupe.isInShop = false;
                 Block.playground.appendChild(dupe.domEl);
                 dupe.setDragging(true);
-                dupe._possibleSpots = this.GetPossibleSpots();
+                dupe._possibleSpots = dupe.GetPossibleSpots();
                 let offsetX = e.screenX - this.domEl.getBoundingClientRect().left;
                 let offsetY = e.screenY - this.domEl.getBoundingClientRect().top;
                 dupe.draggingOffset = [offsetX, offsetY];
@@ -260,11 +260,14 @@ class Block{
      */
     GetPossibleSpots() {
         let allEmpty = Block.GetAllEmptySpots(); //[TODO] filter possible spots
+        let excluded = this.GetChildIds();
+        excluded.push(this.id);
+        console.log(excluded);
         let valid = [];
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            if(!Block.all[blockId].isInShop && blockId != this.id){
+            if(!(Block.all[blockId].isInShop) && !excluded.includes(blockId)){
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;
                 while(root.parentBlock != null){root = root.parentBlock;}
@@ -276,5 +279,16 @@ class Block{
             }
         });
         return valid;
+    }
+
+    GetChildIds(){
+        let list = [];
+        this.childrenBlocks.forEach(bl => {
+            if(bl != null){
+                list.push(bl.id);
+                list = list.concat(bl.GetChildIds())
+            }
+        })
+        return list;
     }
 }
