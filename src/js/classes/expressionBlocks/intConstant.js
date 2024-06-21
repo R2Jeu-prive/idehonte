@@ -15,4 +15,8 @@ class IntConstantEB extends ExpressionBlock{
     Duplicate(){
         return new IntConstantEB(this.constant);
     }
+
+    CheckValid(){
+        return true;
+    }
 }

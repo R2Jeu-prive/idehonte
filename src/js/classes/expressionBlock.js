@@ -3,6 +3,7 @@ class ExpressionBlock extends Block{
         super(text_)
     }
 
+    /** @returns {ExpressionType} */
     GetEvalType(){
         console.error("cannot give expression type for any expression block");
     }
