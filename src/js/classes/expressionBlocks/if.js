@@ -1,50 +1,32 @@
 class IfEB extends ExpressionBlock{
     constructor(){
-        super();
-        this.children = [null, null];
+        super(ExpressionBlock.text("if") + ExpressionBlock.emptySlot + ExpressionBlock.text("then") + ExpressionBlock.emptySlot)
+        this.childrenBlocks = [null, null];
     }
 
     GetEvalType(){
         return new ExpressionTypeConstr([], ConstrType.Get("unit"));
     }
 
-    CheckFit(childBlock, spot){
-        if(spot == 0){
-            if(!(childBlock instanceof ExpressionBlock)){return false;}
-            childBlock.GetEvalType()
-            //[TODO] check type bool
-            return true;
-        }else if(spot == 1){
-            if(!(childBlock instanceof ExpressionBlock)){return false;}
-            //[TODO] check type unit
-            return true;
-        }else{
-            console.error("spot out of bounds");
+    Duplicate(){
+        let copy = new IfEB();
+        copy.DuplicateClassList(this)
+        return copy;
+    }
+
+    CheckValid(){
+        if(this.childrenBlocks[0] != null){
+            if(!(this.childrenBlocks[0] instanceof ExpressionBlock)){return false;} // not an expression
+            if(!this.childrenBlocks[0].CheckValid()){return false;} // children not valid
+            let [typeValid, _1, _2] = this.childrenBlocks[0].GetEvalType().CheckCompatibilityWith(new ExpressionTypeConstr([], ConstrType.Get("bool")));
+            if(!typeValid){return false;} // invalid type
         }
-    }
-}
-
-class IfElseEB extends ExpressionBlock{
-    constructor(){
-        super();
-        this.children = [null, null, null];
-    }
-
-    GetEvalType(){
-        
-    }
-
-    CheckFit(childBlock, spot){
-        if(spot == 0){
-            if(!(childBlock instanceof ExpressionBlock)){return false;}
-            //[TODO] check type bool
-            return true;
-        }else if(spot == 1){
-            //[TODO] check type unit
-            if(!(childBlock instanceof ExpressionBlock)){return false;}
-            return true;
-        }else{
-            console.error("spot out of bounds");
+        if(this.childrenBlocks[1] != null){
+            if(!(this.childrenBlocks[1] instanceof ExpressionBlock)){return false;} // not an expression
+            if(!this.childrenBlocks[1].CheckValid()){return false;} // children not valid
+            let [typeValid, _1, _2] = this.childrenBlocks[1].GetEvalType().CheckCompatibilityWith(new ExpressionTypeConstr([], ConstrType.Get("unit")));
+            if(!typeValid){return false;} // invalid type
         }
+        return true;
     }
 }
