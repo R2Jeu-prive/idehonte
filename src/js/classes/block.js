@@ -194,13 +194,13 @@ class Block{
      * @param {Block} parentBlock 
      * @param {number} spot
      */
-    FitInParent(parentBlock, spot){
+    FitInParent(parentBlock, spot, affectDOM = true){
         this.parentBlock = parentBlock;
         parentBlock.childrenBlocks[spot] = this;
         parentBlock.domEl.appendChild(this.domEl);
     }
 
-    UnFit(){
+    UnFit(affectDOM = true){
         if(this.parentBlock == null){return;}
         let spot = this.parentBlock.childrenBlocks.indexOf(this);
         this.parentBlock.childrenBlocks[spot] = null;
@@ -210,12 +210,10 @@ class Block{
 
     
     /**
-     * @param {Block} childBlock 
-     * @param {number} spot 
-     * @returns {boolean}
+     * @returns {boolean} returns true if no conflict is found with children
      */
-    CheckFit(childBlock, spot){
-        console.error("cannot CheckFit any block");
+    CheckValid(){
+        console.error("cannot CheckValid any block");
     }
 
     /**
@@ -227,11 +225,15 @@ class Block{
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            //if(Block.all[blockId].CheckFit(this, spot)){
-            if (!Block.all[blockId].isInShop && blockId != this.id) {
+            if(Block.all[blockId].isInShop)
+            this.FitInParent(Block.all[blockId], spot, false);
+            let root = this.parentBlock;
+            while(root.parentBlock != null){root = root.parentBlock;}
+            let thisValid = root.CheckValid();
+            this.UnFit(false);
+            if(thisValid && !Block.all[blockId].isInShop && blockId != this.id){
                 valid.push(el);
             }
-            //}
         });
         return valid;
     }

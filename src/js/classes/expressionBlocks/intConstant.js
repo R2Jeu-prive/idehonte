@@ -4,6 +4,7 @@ class IntConstantEB extends ExpressionBlock{
      */
     constructor(n){
         super(ExpressionBlock.text(n.toString(10)))
+        this.constant = n;
         this.childrenBlocks = [];
         this.constant = n;
     }
@@ -14,5 +15,9 @@ class IntConstantEB extends ExpressionBlock{
 
     Duplicate(){
         return super.Duplicate(new IntConstantEB(this.constant));
+    }
+
+    CheckValid(){
+        return true;
     }
 }
