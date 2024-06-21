@@ -16,11 +16,11 @@ Cette méthode permet de pouvoir utiliser l'**IDE de la Hausse Objective du Nive
 
 ## Quelle version d'OCaml l'**IDE de la Hausse Objective du Niveau de Typage et d'Expression** supporte il ?
 
-Bien que basé sur [OCaml 5.1.1](https://ocaml.org/releases/5.1.1), l'**IDE de la Hausse Objective du Niveau de Typage et d'Expression** n'implémente qu'une fraction du langage. Son objectif étant de permettre d'apprendre les bases du typage en [OCaml](https://ocaml.org/), il n'est pas prévu de supporter l'intégralité du langage. La [liste des blocs](https://github.com/R2Jeu-prive/idehonte/blob/main/BLOCS.md) est disponible dans le fichier `BLOCS.md`.
+Bien que basé sur [OCaml 5.1.1](https://ocaml.org/releases/5.1.1), l'**IDE de la Hausse Objective du Niveau de Typage et d'Expression** n'implémente qu'une fraction du langage. Son objectif étant de permettre d'apprendre les bases du typage en [OCaml](https://ocaml.org/), il n'est pas prévu de supporter l'intégralité du langage. La [liste des blocs](BLOCS.md) est disponible dans le fichier `BLOCS.md`.
 
 ## D'où proviennent les icons et polices d'écriture utilisés dans l'**IDE de la Hausse Objective du Niveau de Typage et d'Expression** ?
 
 Voici le [lien vers le projet Figma](https://www.figma.com/file/TbGuYxISewA1W5sjMZWFDs/SHAME-IDE?type=design&node-id=0%3A1&mode=design&t=WKdbKWpOZ9Hjiis6-1) où nous avons soigneusement designé touts nos icons.
 
-Les fichiers de licences et liens vers les différentes polices d'écritures sont disponibles dans le dossier [`src/font/`](https://github.com/R2Jeu-prive/idehonte/tree/main/src/font).
+Les fichiers de licences et liens vers les différentes polices d'écritures sont disponibles dans le dossier [`src/font/`](/main/src/font).
 
