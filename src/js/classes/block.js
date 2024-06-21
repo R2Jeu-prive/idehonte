@@ -271,6 +271,7 @@ class Block{
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
+            console.log([Block.all[blockId].domEl, spot]);
             if(!(Block.all[blockId].isInShop) && !excluded.includes(blockId)){
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;

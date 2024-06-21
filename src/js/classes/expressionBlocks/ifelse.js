@@ -35,7 +35,8 @@ class IfElseEB extends ExpressionBlock{
         }
         if(this.childrenBlocks[1] != null && this.childrenBlocks[2] != null){
             let type1 = this.childrenBlocks[1].GetEvalType();
-            let type2 = this.childrenBlocks[2].GetEvalType().DistinguishIdentsWith(type1);
+            let type2 = this.childrenBlocks[2].GetEvalType();
+            type2 = type1.DistinguishIdentsWith(type2);
             let [typeValid, _1, _2] = type1.CheckCompatibilityWith(type2);
             if(!typeValid){return false;} // incompatible types
         }

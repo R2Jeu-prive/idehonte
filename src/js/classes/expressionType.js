@@ -102,7 +102,7 @@ class ExpressionType{
         let myIdents = this.GetIdentChars();
         let otherIdents = copy.GetIdentChars();
         let commonIdents = myIdents.filter(el => otherIdents.includes(el));
-        while(commonIdents != []){
+        while(commonIdents.length > 0){
             let oldIdent = commonIdents.shift();
             let newIdent = GetNewIdent(myIdents.concat(otherIdents));
             otherIdents.splice(otherIdents.indexOf(oldIdent), 1);
