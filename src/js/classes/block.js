@@ -29,9 +29,9 @@ class Block{
      * @param {string} text_ 
      */
     constructor(text_){
-        let id = Date.now();
+        this.id = Date.now();
         while(Block.all[this.id] != undefined){this.id ++;}
-        Block.all[id] = this;
+        Block.all[this.id] = this;
 
         /** @type {string}*/
         this.text = text_;
@@ -42,7 +42,8 @@ class Block{
         Block.shop.appendChild(this.domEl);
         this.domEl.classList.add("block");
         this.domEl.classList.add("selection-disabled");
-        this.domEl.id = id;
+        this.domEl.id = this.id;
+        // this.domEl.innerHTML = this.id.toString() + this.text;
         this.domEl.innerHTML = this.text;
         /** @type {Block[]}*/
         this.childrenBlocks;
@@ -81,14 +82,65 @@ class Block{
                 this.domEl.style.left = (e.screenX - this.draggingOffset[0]) + "px";
                 this.domEl.style.top = (e.screenY - this.draggingOffset[1]) + "px";
             }
+
+            if (this.dragging) {
+                for (const data of this.GetPossibleSpots()) {
+                    const blockId = data.id;
+                    const spotIndex = data.spot;
+    
+                    const block = Block.all[blockId];
+    
+                    if (block.isInShop) { continue; }
+
+                    if (collide(this.domEl, block.domEl)) {
+                        let spot = block.domEl.querySelectorAll("div")[spotIndex];
+    
+                        if (collide(this.domEl, spot)) {
+                            spot.classList.add("highlight");
+                        } else {
+                            spot.classList.remove("highlight");
+                        }
+                    } else {
+                        block.domEl.querySelectorAll("div").forEach(emptySpot => {
+                            emptySpot.classList.remove("highlight");
+                        })
+                    };
+                }
+            }
+            
         })
 
         document.addEventListener("mouseup", (e) => {
-            this.dragging = false;
-
             if (!this.isInShop && collide(this.domEl, Block.shop)) {
                 this.Delete()
+                return;
             }
+
+            if (this.dragging) {
+                for (const data of this.GetPossibleSpots()) {
+                    const blockId = data.id;
+                    const spotIndex = data.spot;
+    
+                    const block = Block.all[blockId];
+    
+                    if (block.isInShop) { continue; }
+
+                    if (collide(this.domEl, block.domEl)) {
+                        let spot = block.domEl.querySelectorAll("div")[spotIndex];
+    
+                        if (collide(this.domEl, spot)) {
+                            console.log("fit");
+                            spot.classList.remove("empty");
+                            spot.classList.remove("highlight");
+                            this.FitInParent(block, spotIndex);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            this.dragging = false;
+
             //[TODO] use FitInParent if block is let go in a hole
         })
     }
@@ -100,7 +152,6 @@ class Block{
         if(!this.isInShop){console.error("can't assign shop category to a block that is not in shop");return;}
         
         switch (category) {
-
             case Block.categoryAssignments:
                 this.domEl.classList.add("assignment")
                 break;
@@ -114,7 +165,6 @@ class Block{
             case Block.categoryArray:
                 this.domEl.classList.add("module")
                 break;
-
         }
         
         category.insertAdjacentElement("afterend", this.domEl);
@@ -123,8 +173,11 @@ class Block{
     /** 
      * @returns {Block}
     */
-    Duplicate(){
-        console.error("can't duplicate block that is instance of nothing");
+    Duplicate(block) {
+        this.domEl.classList.forEach(token => 
+            block.domEl.classList.add(token)
+        )
+        return block
     }
 
     Delete(){
@@ -167,17 +220,18 @@ class Block{
      * @returns {object[]} an array of {'id':id, 'spot':spot} of all spots in which this Block can be Fit
      */
     GetPossibleSpots(){
-        let allEmpty = Block.GetAllEmptySpots();//[TODO] filter possible slots
+        let allEmpty = Block.GetAllEmptySpots();//[TODO] filter possible spots
         let valid = [];
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
+            if(Block.all[blockId].isInShop)
             this.FitInParent(Block.all[blockId], spot, false);
             let root = this.parentBlock;
             while(root.parentBlock != null){root = root.parentBlock;}
             let thisValid = root.CheckValid();
             this.UnFit(false);
-            if(thisValid){
+            if(thisValid && !Block.all[blockId].isInShop && blockId != this.id){
                 valid.push(el);
             }
         });

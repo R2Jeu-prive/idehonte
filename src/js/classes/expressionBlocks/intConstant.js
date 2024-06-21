@@ -6,6 +6,7 @@ class IntConstantEB extends ExpressionBlock{
         super(ExpressionBlock.text(n.toString(10)))
         this.constant = n;
         this.childrenBlocks = [];
+        this.constant = n;
     }
 
     GetEvalType(){
@@ -13,7 +14,7 @@ class IntConstantEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        return new IntConstantEB(this.constant);
+        return super.Duplicate(new IntConstantEB(this.constant));
     }
 
     CheckValid(){
