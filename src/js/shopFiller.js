@@ -18,8 +18,10 @@ function shopFiller() {
 
     // List
     const sectionList = document.getElementById("section-list");
+    (new IntConstantEB(123456)).SetShopCategory(sectionList);
 
     // Array
     const sectionArray = document.getElementById("section-array");
+    (new IntConstantEB(123789)).SetShopCategory(sectionArray);
 }
 shopFiller();
