@@ -9,7 +9,9 @@ class PlusEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        return super.Duplicate(new PlusEB());
+        let copy = new PlusEB();
+        copy.DuplicateClassList(this)
+        return copy;
     }
 
     CheckValid(){
