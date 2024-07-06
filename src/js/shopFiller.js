@@ -35,6 +35,12 @@ function shopFiller() {
     (new BoolOperatorEB("&&")).SetShopCategory(sectionOperators);
     (new BoolOperatorEB("||")).SetShopCategory(sectionOperators);
     (new NotEB()).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB("<")).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB(">")).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB("<=")).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB(">=")).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB("<>")).SetShopCategory(sectionOperators);
+    (new CompareOperatorEB("=")).SetShopCategory(sectionOperators);
 
 
     // List
