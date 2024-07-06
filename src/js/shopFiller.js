@@ -15,11 +15,23 @@ function shopFiller() {
     trueBlock.SetShopCategory(sectionControlFlow);
     const falseBlock = new BoolConstantEB(false);
     falseBlock.SetShopCategory(sectionControlFlow);
+    (new minMaxIntFloatEB(true,true)).SetShopCategory(sectionControlFlow);
+    (new minMaxIntFloatEB(false,true)).SetShopCategory(sectionControlFlow);
+    (new minMaxIntFloatEB(true,false)).SetShopCategory(sectionControlFlow);
+    (new minMaxIntFloatEB(false,false)).SetShopCategory(sectionControlFlow);
 
     // Operators
     const sectionOperators = document.getElementById("section-operators");
 
-    (new PlusEB()).SetShopCategory(sectionOperators);
+    (new IntOperatorEB("+")).SetShopCategory(sectionOperators);
+    (new IntOperatorEB("-")).SetShopCategory(sectionOperators);
+    (new IntOperatorEB("*")).SetShopCategory(sectionOperators);
+    (new IntOperatorEB("/")).SetShopCategory(sectionOperators);
+    (new IntOperatorEB("mod")).SetShopCategory(sectionOperators);
+    (new FloatOperatorEB("+.")).SetShopCategory(sectionOperators);
+    (new FloatOperatorEB("-.")).SetShopCategory(sectionOperators);
+    (new FloatOperatorEB("*.")).SetShopCategory(sectionOperators);
+    (new FloatOperatorEB("/.")).SetShopCategory(sectionOperators);
 
 
     // List

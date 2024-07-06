@@ -1,6 +1,10 @@
-class PlusEB extends ExpressionBlock{
-    constructor(){
-        super(ExpressionBlock.emptySlot + ExpressionBlock.text("+") + ExpressionBlock.emptySlot)
+class IntOperatorEB extends ExpressionBlock{
+    /**
+     * @param {string} symbol can be + - / * mod
+     */
+    constructor(symbol_){
+        super(ExpressionBlock.emptySlot + ExpressionBlock.text(symbol_) + ExpressionBlock.emptySlot)
+        this.symbol = symbol_
         this.childrenBlocks = [null, null];
     }
 
@@ -9,7 +13,7 @@ class PlusEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        let copy = new PlusEB();
+        let copy = new IntOperatorEB(this.symbol);
         copy.DuplicateClassList(this)
         return copy;
     }
