@@ -2,11 +2,10 @@ class IntConstantEB extends ExpressionBlock{
     /**
      * @param {number} n the value of this constant
      */
-    constructor(n){
-        super(ExpressionBlock.text(n.toString(10)))
-        this.constant = n;
+    constructor(n_){
+        super(ExpressionBlock.text(n_.toString(10)))
+        this.n = n_;
         this.childrenBlocks = [];
-        this.constant = n;
     }
 
     GetEvalType(){
@@ -14,7 +13,7 @@ class IntConstantEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        let copy = new IntConstantEB(this.constant);
+        let copy = new IntConstantEB(this.n);
         copy.DuplicateClassList(this)
         return copy;
     }

@@ -11,6 +11,10 @@ function shopFiller() {
         const block = new IntConstantEB(i);
         block.SetShopCategory(sectionControlFlow);
     }
+    const trueBlock = new BoolConstantEB(true);
+    trueBlock.SetShopCategory(sectionControlFlow);
+    const falseBlock = new BoolConstantEB(false);
+    falseBlock.SetShopCategory(sectionControlFlow);
 
     // Operators
     const sectionOperators = document.getElementById("section-operators");
