@@ -32,6 +32,9 @@ function shopFiller() {
     (new FloatOperatorEB("-.")).SetShopCategory(sectionOperators);
     (new FloatOperatorEB("*.")).SetShopCategory(sectionOperators);
     (new FloatOperatorEB("/.")).SetShopCategory(sectionOperators);
+    (new BoolOperatorEB("&&")).SetShopCategory(sectionOperators);
+    (new BoolOperatorEB("||")).SetShopCategory(sectionOperators);
+    (new NotEB()).SetShopCategory(sectionOperators);
 
 
     // List
