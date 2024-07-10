@@ -38,7 +38,7 @@ class Block{
         Block.all[this.id] = this;
 
         /** @type {string}*/
-        this.text = text_;
+        //this.code = text_; [TODO] filter text_ to remove all html tags
         /** @type {Block}*/
         this.parentBlock = null;
         /** @type {HTMLElement}*/

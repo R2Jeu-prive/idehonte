@@ -1,4 +1,4 @@
-class minMaxIntFloatEB extends ExpressionBlock{
+class MinMaxIntFloatEB extends ExpressionBlock{
     /**
      * @param {boolean} min
      * @param {boolean} int
@@ -15,7 +15,7 @@ class minMaxIntFloatEB extends ExpressionBlock{
     }
 
     Duplicate(){
-        let copy = new minMaxIntFloatEB(this.min, this.int);
+        let copy = new MinMaxIntFloatEB(this.min, this.int);
         copy.DuplicateClassList(this)
         return copy;
     }
