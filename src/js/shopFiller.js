@@ -7,10 +7,10 @@ function shopFiller() {
 
     // Control Flow
     const sectionControlFlow = document.getElementById("section-control-flow");
-    for (let i = 15; i > 0; i--) {
+    /*for (let i = 15; i > 0; i--) {
         const block = new IntConstantEB(i);
         block.SetShopCategory(sectionControlFlow);
-    }
+    }*/
     const trueBlock = new BoolConstantEB(true);
     trueBlock.SetShopCategory(sectionControlFlow);
     const falseBlock = new BoolConstantEB(false);
@@ -45,7 +45,9 @@ function shopFiller() {
 
     // List
     const sectionList = document.getElementById("section-list");
-    (new IntConstantEB(123456)).SetShopCategory(sectionList);
+    (new IntConstantEB(0)).SetShopCategory(sectionList);
+    (new StringConstantEB("", true)).SetShopCategory(sectionList);
+    (new CharConstantEB("", true)).SetShopCategory(sectionList);
 
     // Array
     const sectionArray = document.getElementById("section-array");
