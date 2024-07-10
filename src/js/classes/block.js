@@ -47,8 +47,7 @@ class Block{
         this.domEl.classList.add("block");
         this.domEl.classList.add("selection-disabled");
         this.domEl.id = this.id;
-        // this.domEl.innerHTML = this.id.toString() + this.text;
-        this.domEl.innerHTML = this.text;
+        this.domEl.innerHTML = text_;
         /** @type {Block[]}*/
         this.childrenBlocks;
         /** @type {boolean}*/
@@ -293,5 +292,9 @@ class Block{
             }
         })
         return list;
+    }
+
+    SetCallbackId(){
+        this.domEl.innerHTML = this.domEl.innerHTML.replaceAll("__UNSET__ID", this.id);
     }
 }

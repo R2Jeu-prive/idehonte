@@ -49,6 +49,9 @@ function shopFiller() {
 
     // Array
     const sectionArray = document.getElementById("section-array");
-    (new IntConstantEB(123789)).SetShopCategory(sectionArray);
+    (new IdentETB("a")).SetShopCategory(sectionArray);
+    (new IdentETB("b")).SetShopCategory(sectionArray);
+    (new ArrowETB()).SetShopCategory(sectionArray);
+    (new StarETB()).SetShopCategory(sectionArray);
 }
 shopFiller();

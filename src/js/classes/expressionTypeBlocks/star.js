@@ -1,4 +1,4 @@
-class ArrowETB extends ExpressionTypeBlock{
+class StarETB extends ExpressionTypeBlock{
     /**
      * @param {number} length_ 
      * @param {boolean} hasButtons
@@ -7,7 +7,7 @@ class ArrowETB extends ExpressionTypeBlock{
         let text_ = ExpressionTypeBlock.emptySlot;
         let childrenBlocks_ = [null];
         for(let i = 1; i < length_; i++){
-            text_ += (ExpressionTypeBlock.text("->") + ExpressionTypeBlock.emptySlot);
+            text_ += (ExpressionTypeBlock.text("*") + ExpressionTypeBlock.emptySlot);
             childrenBlocks_.push(null);
         }
         if(hasButtons){
@@ -23,7 +23,7 @@ class ArrowETB extends ExpressionTypeBlock{
     }
 
     Duplicate(){
-        return new ArrowETB(this.length, false);
+        return new StarETB(this.length, false);
     }
 
     /** @returns {ExpressionType} */
@@ -37,7 +37,7 @@ class ArrowETB extends ExpressionTypeBlock{
                 childrenExpressionTypes.push(null);
             }
         }
-        return new ExpressionTypeArrow(childrenExpressionTypes);
+        return new ExpressionTypeStar(childrenExpressionTypes);
     }
 
     CheckValid(){
@@ -50,7 +50,7 @@ class ArrowETB extends ExpressionTypeBlock{
     }
 
     AddSlot(){
-        let copy = new ArrowETB(this.length + 1, true);
+        let copy = new StarETB(this.length + 1, true);
         this.domEl.innerHTML = copy.domEl.innerHTML;
         this.domEl.innerHTML = this.domEl.innerHTML.replaceAll(copy.id, this.id);
         this.childrenBlocks.push(null);
@@ -59,7 +59,7 @@ class ArrowETB extends ExpressionTypeBlock{
     }
 
     RemoveSlot(){
-        let copy = new ArrowETB(this.length - 1, true);
+        let copy = new StarETB(this.length - 1, true);
         this.domEl.innerHTML = copy.domEl.innerHTML;
         this.domEl.innerHTML = this.domEl.innerHTML.replaceAll(copy.id, this.id);
         this.childrenBlocks.pop();
