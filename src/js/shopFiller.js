@@ -48,6 +48,10 @@ function shopFiller() {
     (new IntConstantEB(0)).SetShopCategory(sectionList);
     (new StringConstantEB("", true)).SetShopCategory(sectionList);
     (new CharConstantEB("", true)).SetShopCategory(sectionList);
+    (new ListConstantEB(0, true)).SetShopCategory(sectionList);
+    (new ArrayConstantEB(3, true)).SetShopCategory(sectionList);
+    (new TupleConstantEB(2, true)).SetShopCategory(sectionList);
+    (new SemiColonEB(2, true)).SetShopCategory(sectionList);
 
     // Array
     const sectionArray = document.getElementById("section-array");

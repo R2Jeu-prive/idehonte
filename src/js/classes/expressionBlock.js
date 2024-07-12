@@ -5,6 +5,15 @@ class ExpressionBlock extends Block{
         return `<p>${txt}</p>`
     };
 
+    /**
+     * creates a button with a on click callback
+     * @param {string} innerText 
+     * @param {string} f
+     */
+    static button(innerText, f){
+        return `<button onclick="Block.all['__UNSET__ID'].` + f + `()">` + innerText + `</button>`
+    }
+
     constructor(text_){
         super(text_)
     }
