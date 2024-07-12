@@ -27,7 +27,7 @@ class ListConstantEB extends ExpressionBlock{
 
     GetEvalType(){
         let elType;
-        if(this.n == 0){
+        if(this.n == 0 || this.childrenBlocks[0] == null){
             elType = new ExpressionTypeIdent("a");
         }else{
             elType = this.childrenBlocks[0].GetEvalType();

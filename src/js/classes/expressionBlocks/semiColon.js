@@ -25,7 +25,13 @@ class SemiColonEB extends ExpressionBlock{
     }
 
     GetEvalType(){
-        return this.childrenBlocks[this.n - 1].GetEvalType();
+        let elType;
+        if(this.childrenBlocks[this.n - 1] == null){
+            elType = new ExpressionTypeIdent("a");
+        }else{
+            elType = this.childrenBlocks[this.n - 1].GetEvalType();
+        }
+        return elType;
     }
 
     Duplicate(){

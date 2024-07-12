@@ -26,11 +26,18 @@ class TupleConstantEB extends ExpressionBlock{
     }
 
     GetEvalType(){
-        let elTypes = [];
+        let types = [];
         for(let i = 0; i < this.n; i++){
-            elTypes.push(this.childrenBlocks[i].GetEvalType());
+            let newType = null;
+            if(this.childrenBlocks[i] == null){
+                newType = new ExpressionTypeIdent('a');
+            }else{
+                newType = this.childrenBlocks[i].GetEvalType();
+            }
+            newType = (new ExpressionTypeStar(types)).DistinguishIdentsWith(newType);
+            types.push(newType);
         }
-        return new ExpressionTypeStar(elTypes);
+        return new ExpressionTypeStar(types);
     }
 
     Duplicate(){
