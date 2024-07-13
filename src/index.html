@@ -5,7 +5,7 @@
         <meta name="description" content="An efficient, intuitive, web, block IDE to learn the OCaml language (recent: v5.1.1), with your code interpreted and running in your browser!">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/themes/default.css" id="selected-theme">
+        <link rel="stylesheet" href="css/themes/default.css" id="theme">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/loading.css">
         <link rel="stylesheet" href="css/terminal.css">
@@ -159,12 +159,16 @@
 
             <div>
                 <label for="theme">Thème : </label>
-                <select name="theme" id="theme" onchange="setTheme()">
+                <select name="theme" id="theme-change" onchange="setTheme(null)">
                     <option value="default" selected>OCaml</option>
                     <option value="matthieu">Matthieu</option>
                     <option value="sylvie">Sylvie</option>
                     <option value="kikoolol">Kikoo LOL</option>
                 </select>
+
+                <div class="hline"></div>
+
+                <a href="http://github.com/R2Jeu-prive/idehonte/issues">Reporter un bug</a>
             </div>
         </div>
 

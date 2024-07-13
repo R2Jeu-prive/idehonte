@@ -19,4 +19,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    gap: 16px;
+}
+
+#settings select {
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--c-primary);
+    background-color: var(--c-body);
+    color: var(--c-text);
+    padding: 2px;
+}
+
+#settings a {
+    text-decoration: none;
+    color: var(--c-primary);
+}
+
+#settings .hline {
+    width: 100%;
+    margin: 24px 0px 24px 0px;
+    height: 1px;
+    background-color: var(--c-primary-50);
 }
