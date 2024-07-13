@@ -4,6 +4,8 @@ function shopFiller() {
     (new PrintIntEB()).SetShopCategory(sectionAssignments);
     (new IfEB()).SetShopCategory(sectionAssignments);
     (new IfElseEB()).SetShopCategory(sectionAssignments);
+    (new WhileEB()).SetShopCategory(sectionAssignments);
+    (new ForEB()).SetShopCategory(sectionAssignments);
 
     // Control Flow
     const sectionControlFlow = document.getElementById("section-control-flow");
