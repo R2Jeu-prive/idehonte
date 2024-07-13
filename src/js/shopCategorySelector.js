@@ -1,24 +1,29 @@
-function shopCategorySelectorManager(){
-    let selector = document.getElementById("shop-category-selector");
-    let categories = document.getElementsByClassName("shop-category");
+function shopCategorySelectorManager() {
+    const selector = document.getElementById("shop-category-selector");
+    const categories = document.getElementsByClassName("shop-category");
+    const stall = document.getElementById("shop-stall");
     let selected = categories[0];
-    updatePos();
-    function updatePos(){
-        selector.style.top = selected.getBoundingClientRect().top + "px";
-        for(let category of categories){
-            if(category == selected){
-                category.classList.add("selected");
-            }else{
-                category.classList.remove("selected");
-            }
-        }
-        
-    }
-    for(let category of categories){
-        category.addEventListener("click", function(e){
+
+    for (const category of categories) {
+        category.addEventListener("click", function(e) {
             selected = category;
-            updatePos();
+            selector.style.top = selected.getBoundingClientRect().top + "px";
+            for (const category of categories) {
+                if (category == selected) {
+                    category.classList.add("selected");
+                } else {
+                    category.classList.remove("selected");
+                }
+            }
+
+            stall.style.scrollBehavior = "smooth";
+
+            const categorySeparator = document.getElementById(category.id.replace("shop-category", "section"));
+            stall.scrollTo(0, categorySeparator.offsetTop - 3 * categorySeparator.offsetHeight);
+
+            stall.style.scrollBehavior = "default";
         });
     }
+    selected.click();
 }
 shopCategorySelectorManager();

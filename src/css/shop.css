@@ -1,44 +1,105 @@
-#shop-categories{
-    width: 70px;
-    height: calc(100% - 40px);
+#ide-shop {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+#shop-categories {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin: 20px 0px;
+    gap: var(--category-gap);
+    padding: var(--category-gap);    
 }
 
-.shop-category{
-    width: 70px;
-    height: 70px;
+.shop-category {
+    width: 7em;
+    height: 7em;
     margin: 0px;
+    border-radius: 5px;
+
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    font-family: var(--font);
-    font-size: 40px;
-    color: var(--right-resizer-color);
+
+    text-align: center;
+    font-size: 0.65em;
+    color: var(--c-primary);
     cursor: pointer;
     z-index: 5;
+
+    /* background-color: cyan; */
 }
 
-.shop-category.selected{
-    text-shadow: 0px 0px 10px rgba(var(--terminal-close-cross-color), 0.4);
+.shop-category > svg {
+    width: 4em;
+    height: 4em;
+    /* background-color: red; */
 }
 
-#shop-category-selector{
+.stroke {
+    stroke: var(--c-primary);
+}
+
+.fill {
+    fill: var(--c-primary);
+}
+
+.shop-category > p {
+    width: fit-content;
+    margin: 0px;
+}
+
+.shop-category.selected {
+    text-shadow: 0px 0px 10px rgba(var(--c-primary), 0.4);
+    /* background-color: var(--c-secondary); */
+}
+
+#shop-category-selector {
     position: absolute;
     pointer-events: none;
-    width: 70px;
-    height: 70px;
-    background-color: #00000011;
-    border-radius: 0px 5px 5px 0px;
-    box-shadow: 0px 0px 20px #00000066 inset;
-    transition: top 0.3s;
+
+    width: 4.5em;
+    height: 4.5em;
+
+    background-color: var(--c-dark-30);
+    box-shadow: 0px 0px 15px var(--c-dark) inset;
+    border-radius: 5px;
+    transition: top 0.2s;
 }
 
-#shop-stall{
-    height: 100%;
+#shop-stall {
+    --padding: 1em;
+
+    max-height: calc(100vh - var(--menu-height) - 2 * var(--padding));
+
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    gap: var(--padding);
+
+    padding: var(--padding);
+    padding-left: var(--category-gap);
+
+    overflow-y: scroll;
+    scrollbar-color: var(--c-body) var(--c-body);
+    transition: scrollbar-color 0.2s;
+    scrollbar-width: none;
+}
+
+#shop-stall:hover {
+    scrollbar-width: thin;
+    
+    scrollbar-color: var(--c-primary) var(--c-secondary);
+    transition: scrollbar-color 0.2s;
+}
+
+.hline {
+    width: 100%;
+    
+    margin: 0px;
+
+    border-bottom: 2px solid var(--c-primary-20);
+
 }

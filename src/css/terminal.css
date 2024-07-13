@@ -1,71 +1,27 @@
-#ide-terminal{
-    background-color: var(--secondary-background-color);
+#ide-terminal {
+    background-color: var(--c-secondary);
     width: 100%;
-    height: 50%;
+    height: 15%;
     position: relative;
-    transition: height 0.1s ease-out;
-    border-radius: 15px 0px 0px 0px;
-    box-shadow: 0px 0px 10px #00000050;
+    border-top-left-radius: var(--border-radius);
+    box-shadow: 0px 0px var(--shadow-length) var(--c-dark);
     z-index: 3;
+
 }
 
-#terminal-close{
+#ide-terminal-buttons {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    background-color: rgba(var(--terminal-close-cross-color), 0);
-    transition: 0.1s;
+    top: 0px;
+    right: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 0.5em;
+    padding: 0.5em;
 }
 
-#terminal-close:hover{
-    background-color: rgba(var(--terminal-close-cross-color), 0.1);
-    transition: 0.1s;
-}
-
-.terminal-close-cross{
-    position: absolute;
-    width: 20px;
-    height: 2px;
-    background-color: rgba(var(--terminal-close-cross-color), 1);
-    top: 50%;
-    left: 50%;
-}
-
-#terminal-close-cross-a{
-    transform: translate(-50%, -50%) rotate(45deg);
-    transition: 0.2s;
-}
-
-#terminal-close-cross-b{
-    transform: translate(-50%, -50%) rotate(-45deg);
-    transition: 0.2s;
-}
-
-#terminal-close:hover > #terminal-close-cross-a{
-    transform: translate(-50%, -50%) rotate(135deg);
-    transition: 0.2s;
-}
-
-#terminal-close:hover > #terminal-close-cross-b{
-    transform: translate(-50%, -50%) rotate(45deg);
-    transition: 0.2s;
-}
-
-#ide-right-resizer{
-    background-color: var(--right-resizer-color);
-    width: 200px;
-    margin: 8px;
-    height: 4px;
-    border-radius: 10px;
-    cursor: n-resize;
-    box-shadow: 0px 0px 10px #00000050;
-}
-
-#userinput{
+#userinput {
     display: none;
     pointer-events: none;
 }

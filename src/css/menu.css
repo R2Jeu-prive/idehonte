@@ -1,0 +1,52 @@
+#ide-menu {
+    width: calc(100% + 4px + 8px - 2 * 0.5em);
+    height: var(--menu-height);
+    z-index: 5;
+    border-bottom-right-radius: var(--border-radius);
+
+    padding: 0em 0.5em 0em 0.5em;
+
+    box-shadow: 0px 0px var(--shadow-length) var(--c-dark);
+    background-color: var(--c-secondary);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo & Title */
+#ide-menu-icon {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+#ide-menu-icon > svg {
+    --size: var(--menu-height);
+    height: var(--size);
+    width: var(--size);
+    min-width: var(--size);
+}
+
+#ide-menu-icon path, #ide-menu-icon rect {
+    stroke: var(--c-primary);
+}
+
+#ide-menu-icon > h1 {
+    max-width: 20em;
+
+    color: var(--c-primary);
+    font-size: x-small;
+    font-weight: normal;
+}
+
+/* Buttons */
+#ide-menu-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5em;
+}

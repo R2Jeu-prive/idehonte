@@ -1,0 +1,23 @@
+.button {
+    width: 2em;
+    height: 2em;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    background-color: var(--c-primary-0);
+    transition: 0.1s;
+}
+
+.button:hover {
+    background-color: var(--c-primary-10);
+    transition: 0.1s;
+}
+
+.button > svg {
+    width: 75%;
+    height: 75%;
+}
