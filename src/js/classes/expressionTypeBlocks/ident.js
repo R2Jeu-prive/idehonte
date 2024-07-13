@@ -1,12 +1,12 @@
-class ExpressionTypeBlockIdent extends ExpressionTypeBlock {
+class ExpressionTypeBlockIdent extends ExpressionTypeBlock{
     /**
-     * @param {string} letter_
+     * @param {string} letter_ 
      */
-    constructor(letter_) {
+    constructor(letter_){
         super("'" + letter_, new ExpressionTypeIdent(letter_));
     }
 
-    Duplicate() {
+    Duplicate(){
         return new ExpressionTypeBlockIdent(this.expressionType.letter);
     }
 }

@@ -13,22 +13,22 @@ function playgroundHandler() {
     let offsetY = 0;
     let dragging = false;
 
-    document.addEventListener("contextmenu", (event) => {
+    document.addEventListener("contextmenu", event => {
         event.preventDefault();
     });
 
-    document.addEventListener("mousedown", (event) => {
+    document.addEventListener("mousedown", event => {
         const target = event.target;
         if (event.button == 2 && collide(target, playground)) {
             dragging = true;
         }
     });
 
-    document.addEventListener("mouseup", (event) => {
+    document.addEventListener("mouseup", event => {
         dragging = false;
     });
 
-    document.addEventListener("mousemove", (event) => {
+    document.addEventListener("mousemove", event => {
         mouseX = event.screenX;
         mouseY = event.screenY;
 
@@ -48,9 +48,9 @@ function playgroundHandler() {
             }
         }
     });
-
+    
     const playButton = document.getElementById("button-run");
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", event => {
         if (event.key == "Enter") {
             playButton.classList.add("animate");
             setTimeout(() => {
