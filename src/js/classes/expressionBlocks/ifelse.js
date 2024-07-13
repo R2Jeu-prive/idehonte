@@ -5,11 +5,19 @@ class IfElseEB extends ExpressionBlock{
     }
 
     GetEvalType(){
-        let type1 = this.childrenBlocks[1].GetEvalType();
-        let type2 = this.childrenBlocks[2].GetEvalType().DistinguishIdentsWith(type1);
-        let [typeValid, finalType, _2] = type1.CheckCompatibilityWith(type2);
-        if(!typeValid){console.error("GetEvalType on if else where both case are incompatible (this should never happen)");}
-        return finalType;
+        if(this.childrenBlocks[1] != null && this.childrenBlocks[2] != null){
+            let type1 = this.childrenBlocks[1].GetEvalType();
+            let type2 = this.childrenBlocks[2].GetEvalType().DistinguishIdentsWith(type1);
+            let [typeValid, finalType, _2] = type1.CheckCompatibilityWith(type2);
+            if(!typeValid){console.error("These types should be compatible (forgot to CheckValid first ?)");}
+            return finalType;
+        }else if(this.childrenBlocks[1] != null){
+            return this.childrenBlocks[1].GetEvalType();
+        }else if(this.childrenBlocks[2] != null){
+            return this.childrenBlocks[2].GetEvalType();
+        }else{
+            return new ExpressionTypeIdent("a");
+        }
     }
 
     Duplicate(){

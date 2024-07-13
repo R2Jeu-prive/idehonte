@@ -38,7 +38,7 @@ class Block{
         Block.all[this.id] = this;
 
         /** @type {string}*/
-        this.text = text_;
+        //this.code = text_; [TODO] filter text_ to remove all html tags
         /** @type {Block}*/
         this.parentBlock = null;
         /** @type {HTMLElement}*/
@@ -47,8 +47,7 @@ class Block{
         this.domEl.classList.add("block");
         this.domEl.classList.add("selection-disabled");
         this.domEl.id = this.id;
-        // this.domEl.innerHTML = this.id.toString() + this.text;
-        this.domEl.innerHTML = this.text;
+        this.domEl.innerHTML = text_;
         /** @type {Block[]}*/
         this.childrenBlocks;
         /** @type {boolean}*/
@@ -272,7 +271,6 @@ class Block{
         allEmpty.forEach(el => {
             let blockId = el.id;
             let spot = el.spot;
-            console.log([Block.all[blockId].domEl, spot]);
             if(!(Block.all[blockId].isInShop) && !excluded.includes(blockId)){
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;
@@ -296,5 +294,9 @@ class Block{
             }
         })
         return list;
+    }
+
+    SetCallbackId(){
+        this.domEl.innerHTML = this.domEl.innerHTML.replaceAll("__UNSET__ID", this.id);
     }
 }
