@@ -35,7 +35,6 @@ class StringConstantEB extends ExpressionBlock{
      * @param {HTMLInputElement} el 
      */
     ChangeValue(el){
-        if(el.value.match())
         this.s = el.value;
     }
 }
