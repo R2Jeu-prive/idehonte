@@ -94,6 +94,7 @@ class Block{
 
             this.moveTo(e.screenX - this.draggingOffset[0], e.screenY - this.draggingOffset[1]);
 
+            let highlighted = false;
             for (const data of this._possibleSpots) {
                 const block = Block.all[data.id];
 
@@ -102,8 +103,9 @@ class Block{
                 if (collide(this.domEl, block.domEl)) {
                     let spot = queryFirstChildrenDiv(block.domEl)[data.spot];
 
-                    if (collide(this.domEl, spot)) {
+                    if (!highlighted && collide(this.domEl, spot)) {
                         spot.classList.add("highlight");
+                        highlighted = true;
                     } else {
                         spot.classList.remove("highlight");
                     }
