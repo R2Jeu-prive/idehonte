@@ -1,10 +1,12 @@
 class BoolConstantEB extends ExpressionBlock{
     /**
-     * @param {boolean} val the value of this constant
+     * @param {boolean} val_ the value of this constant
      */
     constructor(val_){
-        super(ExpressionBlock.text(val_ ? "true" : "false"))
+        super();
         this.val = val_;
+        this.code = (val_ ? "true" : "false");
+        this.domEl.appendChild(BlockFront.text(val_ ? "true" : "false"));
         this.childrenBlocks = [];
     }
 

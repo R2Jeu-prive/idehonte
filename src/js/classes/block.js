@@ -3,6 +3,7 @@ function queryFirstChildrenDiv(element) {
 }
 
 class Block{
+    /** @type {Object.<string, Block>} */
     static all = {}; //all blocks are stored here and acceccible via there id
     static playground = document.getElementById("ide-playground");
     static shop = document.getElementById("shop-stall");
@@ -29,16 +30,10 @@ class Block{
         return res;
     }
 
-    /**
-     * @param {string} text_ 
-     */
-    constructor(text_){
+    constructor(){
         this.id = Date.now();
         while(Block.all[this.id] != undefined){this.id ++;}
         Block.all[this.id] = this;
-
-        /** @type {string}*/
-        //this.code = text_; [TODO] filter text_ to remove all html tags
         /** @type {Block}*/
         this.parentBlock = null;
         /** @type {HTMLElement}*/
@@ -47,9 +42,10 @@ class Block{
         this.domEl.classList.add("block");
         this.domEl.classList.add("selection-disabled");
         this.domEl.id = this.id;
-        this.domEl.innerHTML = text_;
+        /** @type {string[]} */
+        this.code = null; // the code from this block seperating code from children blocks (length is childrenBlocks.length + 1)
         /** @type {Block[]}*/
-        this.childrenBlocks;
+        this.childrenBlocks = null;
         /** @type {boolean}*/
         this.isInShop = true;
         /** @type {boolean}*/
@@ -231,6 +227,8 @@ class Block{
             this.domEl.classList.add("inside");
             queryFirstChildrenDiv(parentBlock.domEl)[spot].appendChild(this.domEl);
             queryFirstChildrenDiv(parentBlock.domEl)[spot].classList.remove("empty");
+
+            Block.RefreshAll();
         }
     }
 
@@ -247,6 +245,8 @@ class Block{
 
             this.domEl.style.left = (mouseX - this.draggingOffset[0]) + "px";
             this.domEl.style.top  = (mouseY - this.draggingOffset[1]) + "px";
+
+            Block.RefreshAll();
         }
 
         this.parentBlock = null;
@@ -254,10 +254,10 @@ class Block{
 
     
     /**
-     * @returns {boolean} returns true if no conflict is found with children
+     * @returns {boolean} returns true if no conflict is found with children or throws error if
      */
     CheckValid(){
-        console.error("cannot CheckValid any block");
+        throw Error("This block doesn't have CheckValid function");
     }
 
     /**
@@ -275,11 +275,14 @@ class Block{
                 this.FitInParent(Block.all[blockId], spot, false);
                 let root = this;
                 while(root.parentBlock != null){root = root.parentBlock;}
-                let thisValid = root.CheckValid();
-                this.UnFit(false);
-                if(thisValid){
+                try {
+                    root.CheckValid();
                     valid.push(el);
+                } catch (e) {
+                    if(!(e instanceof CheckValidError)){throw e;}
+                    console.log(e.message); //[TODO] use this to hint the user why block doesn't fit
                 }
+                this.UnFit(false);
             }
         });
         return valid;
@@ -296,7 +299,14 @@ class Block{
         return list;
     }
 
-    SetCallbackId(){
-        this.domEl.innerHTML = this.domEl.innerHTML.replaceAll("__UNSET__ID", this.id);
+    Refresh(){
+        //this is a placeholder for certain blocks that need refreshing
+    }
+
+    /** tries to refersh every block (some don't have the function) */
+    static RefreshAll(){
+        for(let id in Block.all){
+            Block.all[id].Refresh();
+        }
     }
 }
