@@ -42,7 +42,7 @@ class BlockFront{
      * @param {string} placeholder the placeholder of the DOM element
      * @param {string[]} classes the classes of the DOM element
      */
-    static input(type, oninputFunction, placeholder, classes){
+    static input(type, oninputFunction, params, placeholder, classes = []){
         let res = document.createElement("input");
         classes.forEach(c => res.classList.add(c));
         res.setAttribute("type", type);

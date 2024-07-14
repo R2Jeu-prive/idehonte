@@ -11,6 +11,7 @@ function shopFiller() {
     const sectionControlFlow = document.getElementById("section-control-flow");
     (new BoolConstantEB(true)).SetShopCategory(sectionControlFlow);
     (new BoolConstantEB(false)).SetShopCategory(sectionControlFlow);
+    (new ArrayConstantEB(3)).SetShopCategory(sectionControlFlow);
     /*
     (new MinMaxIntFloatEB(true,true)).SetShopCategory(sectionControlFlow);
     (new MinMaxIntFloatEB(false,true)).SetShopCategory(sectionControlFlow);
@@ -48,13 +49,14 @@ function shopFiller() {
     (new ListConstantEB(0, true)).SetShopCategory(sectionList);
     (new TupleConstantEB(2, true)).SetShopCategory(sectionList);
     (new SemiColonEB(2, true)).SetShopCategory(sectionList);*/
-    (new ArrayConstantEB(3)).SetShopCategory(sectionList);
 
     // Array
     const sectionArray = document.getElementById("section-array");
+    (new ArrowETB()).SetShopCategory(sectionArray);
+    (new StarETB()).SetShopCategory(sectionArray);
+    (new IdentETB()).SetShopCategory(sectionArray);
     /*(new IdentETB("a")).SetShopCategory(sectionArray);
     (new IdentETB("b")).SetShopCategory(sectionArray);
-    (new ArrowETB()).SetShopCategory(sectionArray);
     (new StarETB()).SetShopCategory(sectionArray);*/
 }
 shopFiller();

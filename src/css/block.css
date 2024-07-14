@@ -23,6 +23,10 @@
     padding: 5px 8px 5px 8px;
 }
 
+.block.expressionType {
+    border-radius: 30px;
+}
+
 .block p,
 .block div.empty {
     pointer-events: none;
@@ -68,6 +72,10 @@
     border-radius: 5px;
 
     background-color: var(--c-dark-30);
+}
+
+.block > div.empty.expressionType {
+    border-radius: 30px;
 }
 
 .block > div.empty.highlight {

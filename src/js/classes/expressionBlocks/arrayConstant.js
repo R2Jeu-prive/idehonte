@@ -33,7 +33,7 @@ class ArrayConstantEB extends ExpressionBlock{
 
     Duplicate(){
         let copy = new ArrayConstantEB(this.n);
-        copy.DuplicateClassList(this)
+        copy.DuplicateClassList(this);
         return copy;
     }
 
@@ -107,13 +107,12 @@ class ArrayConstantEB extends ExpressionBlock{
             i++;
             cursor = cursor.previousElementSibling;
         }
-        i = (i-1)/3; // gets index of deleted slot;
+        i = (i-2)/3; // gets index of deleted slot;
         if(this.childrenBlocks[i] != null){return;}
         let spotIsEmpty = crossButtonElement.previousElementSibling.firstChild == null;
         if(!spotIsEmpty){return;}
-
         if(this.n > 1){ // remove the ; separator
-            if(crossButtonElement.previousElementSibling.previousElementSibling != null){
+            if(i != 0){
                 crossButtonElement.previousElementSibling.previousElementSibling.remove();
             }else{
                 crossButtonElement.nextElementSibling.remove();
@@ -124,7 +123,7 @@ class ArrayConstantEB extends ExpressionBlock{
 
         this.n -= 1;
         this.SetCode();
-        this.childrenBlocks.splice(this.childrenBlocks.indexOf(null), 1); //[TODO] fix bug we need to remove the correct null not just any
+        this.childrenBlocks.splice(i, 1);
     }
 
     /**

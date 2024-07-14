@@ -7,4 +7,5 @@ class CheckValidError extends Error{
     }
 
     static expressionBlockExpected = new CheckValidError("Le bloc tenu n'est pas une expression");
+    static expressionTypeBlockExpected = new CheckValidError("Le bloc tenu n'est pas un type d'expression");
 }

@@ -1,38 +1,44 @@
 class ArrowETB extends ExpressionTypeBlock{
     /**
-     * @param {number} length_ 
-     * @param {boolean} hasButtons
+     * @param {number} n_ 
+     * @param {boolean} hasButtons_
      */
-    constructor(length_ = 2, hasButtons = true){
-        let text_ = ExpressionTypeBlock.emptySlot;
-        let childrenBlocks_ = [null];
-        for(let i = 1; i < length_; i++){
-            text_ += (ExpressionTypeBlock.text("->") + ExpressionTypeBlock.emptySlot);
-            childrenBlocks_.push(null);
-        }
-        if(hasButtons){
-            text_ += ExpressionTypeBlock.button("+", "AddSlot");
-            if(length_ > 2){
-                text_ += ExpressionTypeBlock.button("-", "RemoveSlot");
-            }
-        }
-        super(text_);
-        this.SetCallbackId();
-        this.length = length_;
-        this.childrenBlocks = childrenBlocks_;
+    constructor(n_ = 2, hasButtons_ = true){
+        super();
+
+        /** @type {number} */
+        this.n = 0;
+
+        /** @type {boolean} */
+        this.hasButtons = hasButtons_;
+
+        /** @type {ExpressionTypeBlock[]} */
+        this.childrenBlocks = new Array(this.n).fill(null);
+        
+        this.code = new Array(this.n + 1).fill(" -> ");
+        this.code[0] = "";
+        this.code[this.n] = "";
+        
+        this.domEl.appendChild(BlockFront.button("+", "AddSlot"));
+        this.domEl.appendChild(BlockFront.button("x", "RemoveSlot"));
+
+        for(let i = 0; i < n_; i++){this.AddSlot();}
     }
 
     Duplicate(){
-        return new ArrowETB(this.length, false);
+        let res = new ArrowETB(this.n, false);
+        res.Refresh();
+        res.DuplicateClassList(this);
+        return res;
     }
 
     /** @returns {ExpressionType} */
-    GetEvalType(){
+    GetType(){
         let childrenExpressionTypes = [];
         
-        for(let i = 0; i < this.childrenBlocks.length; i++){
+        for(let i = 0; i < this.n; i++){
             if(this.childrenBlocks[i] != null){
-                childrenExpressionTypes.push(this.childrenBlocks[i].GetEvalType());
+                childrenExpressionTypes.push(this.childrenBlocks[i].GetType());
             }else{
                 childrenExpressionTypes.push(null);
             }
@@ -43,27 +49,54 @@ class ArrowETB extends ExpressionTypeBlock{
     CheckValid(){
         for(let i = 0; i < this.childrenBlocks.length; i++){
             if(this.childrenBlocks[i] != null && !(this.childrenBlocks[i] instanceof ExpressionTypeBlock)){
-                return false;
+                throw CheckValidError.expressionTypeBlockExpected;
             }
         }
         return true;
     }
 
+    /**
+     * adds a slot at the end of this block
+     */
     AddSlot(){
-        let copy = new ArrowETB(this.length + 1, true);
-        this.domEl.innerHTML = copy.domEl.innerHTML;
-        this.domEl.innerHTML = this.domEl.innerHTML.replaceAll(copy.id, this.id);
+        if(this.n != 0){this.domEl.prepend(BlockFront.text("->"));}
+        this.domEl.prepend(BlockFront.emptySlot("expressionType"));
+
         this.childrenBlocks.push(null);
-        this.length += 1;
-        copy.Delete();
+        this.n += 1;
+        
+        this.code.splice(1, 0, " -> ");
+
+        this.Refresh();
     }
 
+    /**
+     * removes a slot
+     */
     RemoveSlot(){
-        let copy = new ArrowETB(this.length - 1, true);
-        this.domEl.innerHTML = copy.domEl.innerHTML;
-        this.domEl.innerHTML = this.domEl.innerHTML.replaceAll(copy.id, this.id);
+        this.domEl.firstElementChild.remove();
+        this.domEl.firstElementChild.remove();
+
+        this.code.splice(1, 1);
+
         this.childrenBlocks.pop();
-        this.length -= 1;
-        copy.Delete();
+
+        this.n -= 1;
+
+        this.Refresh();
+    }
+
+    Refresh(){
+        if(this.hasButtons){
+            this.domEl.lastElementChild.previousElementSibling.disabled = false;
+            if(this.n > 2){
+                this.domEl.lastElementChild.disabled = false;
+            }else{
+                this.domEl.lastElementChild.disabled = true;
+            }
+        }else{
+            this.domEl.lastElementChild.disabled = true;
+            this.domEl.lastElementChild.previousElementSibling.disabled = true;
+        }
     }
 }
